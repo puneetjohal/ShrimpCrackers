@@ -51,3 +51,9 @@ puneetJ -- 2019-05-10 08:47
 0. Moved click on map to get location and getting current
 location based on ip address to strech goals on design doc
 ==============================================================
+
+puneetJ -- 2019-05-10 12:40
+--------------------------------------------------------------
+0. Added api kb cards
+1. Created a project on GitHub and added to-do tasks
+==============================================================
