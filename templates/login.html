@@ -1,19 +1,27 @@
-{% extends "base.html" %}
-
-{% block title %} Login {% endblock %}
+{% extends "parent.html" %}
 
 {% block content %}
-    <h1>Login</h1>
-    <br>
-    <form action="/auth">
-        <label for="username">Username</label>
-        <input type="text" name="user" id="username" placeholder="username">
-        <label for="password">Password</label>
-        <input type="password" name="password" class="form-control" id="password" placeholder="password">
-      <br>
-      <div><button type="submit">Login</button></div>
-      <br>
-    </form>
-    <a href="/">Back to home </a>
+<div class="userInfo">
+  <!--Able to login by submitting existing user/pass or make new account by pressing "register"-->
+  <form action="/auth" method="POST">
+    <div class="form-group">
+      <label class="control-label" for="username">Username</label>
+      <input type="text" name="username" class="form-control" id="username">
+    </div>
+    <div class="form-group">
+      <label class="control-label" for="password">Password</label>
+      <input type="password" name="password" class="form-control" id="password">
+    </div>
+    <div class="form-group">
+      <button type="submit" class="btn btn-danger col-sm-2" id="account" name = {{type}} value = "Login">Login</button>
+    </div>
+  </form>
+  
+  <br>
+  
+  <p> Not a member? <a href="/register">Register</a> </p>
+  <div class="center">
+    <a class="btn btn-danger" href="/" id="account">Return</a>
+  </div>
 </div>
 {% endblock %}
