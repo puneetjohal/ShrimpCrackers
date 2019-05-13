@@ -15,6 +15,7 @@
         <a href="/login"> Login </a>
         <a href="/register"> Register </a>
     {% else %}
+        <p>Hi {{user}}</p>
         <a class-"nav-link nav-lr" href="/logout" style="text-decoration: none;color:grey"> Logout </a>
     {% endif %}
     {% block alert %}

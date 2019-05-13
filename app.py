@@ -12,7 +12,10 @@ app.secret_key = os.urandom(32)
 #---------- Main Page ----------
 @app.route("/")
 def home():
-    return render_template("home.html")
+    if "logged_in" in session:
+        return render_template("home.html", logged_in=True, user=session["logged_in"])
+    else:
+        return render_template("home.html", logged_in=False)
 
 #---------- Login/Register----------
 @app.route("/login")
