@@ -64,3 +64,9 @@ joyceL -- 2019-05-13 07:27
 1. set up flask app with login, register, and root routes
 2. set up templates for said routes + base template
 ==============================================================
+
+sophiaX -- 2019-05-13 22:00
+--------------------------------------------------------------
+0. made all the python files for accessing APIs(touch)
+1. finished coord.py (uses MapQuest Open Geocoding API)
+==============================================================
