@@ -1,6 +1,6 @@
 import os
 
-from flask import Flask, render_template, request,flash, session,url_for,redirect
+from flask import Flask, render_template, request, flash, session, url_for, redirect
 
 from util import db
 
@@ -15,17 +15,15 @@ def home():
 		return render_template("home.html", title = "Home", heading = "Hello " + session["logged_in"] + "!", user = session["logged_in"], logged_in = True, watchilist_data = data)
 	return render_template("home.html", title = "Home", heading = "Hello Guest!", logged_in = False)
 
-#Authenticates user and adds session
-#Returns to the page the user was on previously
-
+# ================Accounts================
 @app.route("/auth", methods = ["GET", "POST"])
 def auth():
 	return_page = "home"
-        
+
 	for each in request.form:
 		if request.form[each] == "Login":
 			return_page = each
-                        
+
 	given_user = request.form["username"]
 	given_pwd = request.form["password"]
 	if db.auth_user(given_user, given_pwd):
@@ -34,7 +32,7 @@ def auth():
 	else:
 		flash("Username or password is incorrect")
 		return redirect(url_for("login"))
-        
+
 @app.route("/login")
 def login():
 	return render_template("login.html", title = "Login", heading = "Login", type = "home")
@@ -72,47 +70,28 @@ def logout():
 		print(session)
 	return redirect(url_for("home"))
 
-# Depending on the current status, either adds or removes from the watchlist
-# Returns to the original search page.
-@app.route("/changeWatchlist", methods = ["GET", "POST"])
-def changeWatchlist():
-	print ("request.args: " )
-	print ( request.args )
-	print ( "\n ------------")
-
-	for each in request.args:
-		if request.args[each] == "Add to watchlist":
-			data = each.split("{!{!!}!}")
-			search = data[1]
-			companyCode = data[0].lower()
-			db.add_watchlist(session["logged_in"], companyCode)
-		if request.args[each] == "Remove from watchlist":
-			data = each.split("{!{!!}!}")
-			search = data[1].replace("|~|~|", " ")
-			companyCode = data[0].lower()
-			db.remove_watchlist(session["logged_in"], companyCode)
-	return redirect(url_for("stockResults", stock_info = search))
-
-@app.route("/removeWatchlist", methods = ["GET", "POST"])
-def removeWatchlist():
-	print(request.args)
-	for each in request.args:
-		if request.args[each] == "Remove from watchlist":
-			data = each.split("{!{!!}!}")
-			companyCode = data[0]
-			db.remove_watchlist(session["logged_in"], companyCode)
-	return redirect(url_for("watchlist"))
-
+# ================Watchlist================
 @app.route("/watchlist")
-def watchlist():
-	if "logged_in" in session:
-		watchlist_data = db.get_watchlist(session["logged_in"])
-		for each in watchlist_data:
-			each[0] = info.getStocks(each[1].lower())
-		return render_template("watchlist.html", watchlist = watchlist_data, title = "Watchlist", heading = "Watchlist", logged_in = True)
-	else:
-		flash ("Please login to view Watchlist")
-		return render_template("login.html", title = "Login", heading = "Login", type = "watchlist")#redirect(url_for("login"))
+def load_wl():
+	user = session["logged_in"]
+	locations = db.get_watchlist(user)
+	# call api to get info for each location
+	return render_template("watchlist.html")
+
+@app.route("/add_wl", methods = ["GET", "POST"])
+def add_wl():
+	user = session["logged_in"]
+	location = request.forms("loc")
+	db.add_watchlist(user, location)
+	return redirect(url_for("load_wl")) # placeholder, should redirect to info page
+
+@app.route("/rm_wl", methods = ["GET", "POST"])
+def rm_wl():
+	user = session["logged_in"]
+	location = location = request.forms("loc")
+	db.remove_watchlist(user, location)
+	return redirect(url_for("load_wl"))
+
 
 if __name__ == "__main__":
         app.debug = True
