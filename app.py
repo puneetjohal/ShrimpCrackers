@@ -75,7 +75,7 @@ def logout():
 def load_wl():
 	user = session["logged_in"]
 	locations = db.get_watchlist(user)
-	return render_template("watchlist.html", watchlist=locations, logged_in = True)
+	return render_template("watchlist.html", title = "Watchlist", heading = "Watchlist", watchlist = locations, logged_in=True)
 
 @app.route("/add_wl", methods = ["GET", "POST"])
 def add_wl():
