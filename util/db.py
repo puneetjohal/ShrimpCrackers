@@ -1,5 +1,5 @@
 import sqlite3
-DB_FILE = "../data/watchlist.db"
+DB_FILE = "data/watchlist.db"
 
 # ==================== Init ====================
 def create_tables():
