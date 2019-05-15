@@ -71,6 +71,14 @@ sophiaX -- 2019-05-13 22:00
 1. finished coord.py (uses MapQuest Open Geocoding API)
 ==============================================================
 
+all -- 2019-05-14 1:00
+--------------------------------------------------------------
+0. Looked for new APIs/datasets that provided us with the
+information we needed for our project (average monthly
+temperatures for American cities since at least 1950) and
+gave us enough calls
+==============================================================
+
 puneetJ -- 2019-05-15 10:55
 --------------------------------------------------------------
 0. updated devlog to reflect the apis that we will be using 
