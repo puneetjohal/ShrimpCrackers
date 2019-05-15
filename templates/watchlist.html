@@ -4,17 +4,22 @@
 <div class="table-responsive">
   <table class="table table-hover text-center" width="100%">
     <thead>
-      <tr class="bg-danger text-white"></tr>
+      <tr class="bg-danger text-white">
+        <th>location</th>
+      </tr>
     </thead>
     <tbody>
       {% for each in watchlist %}
+      <tr>
+        <td><button>{{each}}</button></td>
+        <td>
 	<form action = "/removeWatchlist">
 	  <div class="form-group">
-	    <button type="submit" class="btn btn-outline-danger btn-sm" id="remove_btn" name = {{each[1]}} value = "Remove from watchlist">Remove from Watchlist</button>
+	    <button type="submit" class="btn btn-outline-danger btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
 	  </div>
 	</form>
-      </td>
-</tr>
+        </td>
+      </tr>
 {% endfor %}
 </tbody>
 </table>
