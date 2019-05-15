@@ -71,7 +71,7 @@ sophiaX -- 2019-05-13 22:00
 1. finished coord.py (uses MapQuest Open Geocoding API)
 ==============================================================
 
-all -- 2019-05-14 1:00
+all -- 2019-05-14 14:00
 --------------------------------------------------------------
 0. Looked for new APIs/datasets that provided us with the
 information we needed for our project (average monthly
@@ -85,4 +85,10 @@ puneetJ -- 2019-05-15 10:55
 in our project
 1. added api kb card for mapquest api
 2. removed api kb cards for apis we are no longer using
+==============================================================
+
+joyceL -- 2019-05-15 15:11
+--------------------------------------------------------------
+0. finish db functions / loading watchlist
+1. finished generating a map from locationIQ at /info route (not customizable based on long/lat yet)
 ==============================================================
