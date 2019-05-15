@@ -4,24 +4,36 @@
 <div class="table-responsive">
   <table class="table table-hover text-center" width="100%">
     <thead>
-      <tr class="bg-danger text-white">
-        <th>location</th>
+      <tr class="text-white" style="background-color: #8192d9;">
+        <th colspan="2">Location</th>
       </tr>
     </thead>
     <tbody>
+      <!-- remove after testing -->
+      <tr>
+        <td><a href="/#">test</a></td>
+        <td>
+	  <form action = "/removeWatchlist">
+	    <div class="form-group">
+	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
+	    </div>
+	  </form>
+        </td>
+      </tr>
+      <!-- remove after testing -->
       {% for each in watchlist %}
       <tr>
         <td><button>{{each}}</button></td>
         <td>
-	<form action = "/removeWatchlist">
-	  <div class="form-group">
-	    <button type="submit" class="btn btn-outline-danger btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
-	  </div>
-	</form>
+	  <form action = "/removeWatchlist">
+	    <div class="form-group">
+	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
+	    </div>
+	  </form>
         </td>
       </tr>
-{% endfor %}
-</tbody>
-</table>
+      {% endfor %}
+    </tbody>
+  </table>
 </div>
 {% endblock %}
