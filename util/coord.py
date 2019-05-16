@@ -24,9 +24,10 @@ def getOptions(city):
         alist.append(results[x]['adminArea4']) #county
         alist.append(results[x]['adminArea3']) #state
         alist.append(results[x]['adminArea1']) #country
-        alist.append(results[x]['latLng']['lat'])
-        alist.append(results[x]['latLng']['lng'])
+        #alist.append(results[x]['latLng']['lat'])
+        #alist.append(results[x]['latLng']['lng'])
         retlist.append(alist)
     print(retlist)
+    return retlist
     
-#getOptions("Brooklyn")
+getOptions("Brooklyn")

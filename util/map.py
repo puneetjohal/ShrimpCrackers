@@ -10,4 +10,3 @@ def gen_map(latitude, longitude):
     print (r)
 
 gen_map(40.7128,-74.0060)
-

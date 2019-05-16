@@ -98,3 +98,11 @@ joyceL -- 2019-05-15 15:11
 1. finished generating a map from locationIQ at /info route (not customizable based on long/lat yet)
 ==============================================================
 
+sophiaX -- 2019-05-16 12:45
+--------------------------------------------------------------
+0. Tested different Queries on the NOAA CDO API
+1. Created a function to get the city id
+   (need to figure out appropriate range for the offset)
+2. Created a function to get historical weather data on the city
+   (needs polishing, currently very slow and only gets EMNT data)
+==============================================================
