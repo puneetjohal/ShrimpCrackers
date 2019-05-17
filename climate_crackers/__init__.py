@@ -99,7 +99,7 @@ def load_info():
         loc_name = request.args["place_info"]
         lat = request.args["lat"]
         longi = request.args["long"]
-        return render_template("info.html", logged_in=status, latitude=lat, longitude=longi, location=loc_name)
+        return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name)
 
 # ================search================
 @app.route("/search")
@@ -107,7 +107,7 @@ def load_results():
         labels = ["neighborhood","city","county","state","country"]
         location = request.args["search_location"]
         result = coord.getOptions(location)
-        return render_template("search.html",labels=labels,result=result)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for " + labels, labels=labels,result=result)
 
 if __name__ == "__main__":
         app.debug = True
