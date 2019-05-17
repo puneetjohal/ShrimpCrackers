@@ -1,5 +1,5 @@
 # Climate Crackers 
-### By Team ShrimpCrackers - Puneet Johal, Tania Cao, Joyce Liao, Sophia Xia
+### Team ShrimpCrackers - Puneet Johal, Tania Cao, Joyce Liao, Sophia Xia
 
 [Live link](http://68.183.221.237:8000/)
 
