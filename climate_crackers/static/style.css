@@ -67,3 +67,21 @@
     background-color: #5cb85c;
     color: white;
 }
+
+/* temp svg styling */
+.counties {
+  fill: #D3D3D3;
+}
+
+.counties :hover {
+  fill: red;
+}
+
+.county-borders {
+  fill: none;
+  stroke: #000;
+  stroke-width: 0.5px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
