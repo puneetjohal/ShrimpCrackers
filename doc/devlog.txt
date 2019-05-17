@@ -152,3 +152,9 @@ puneetJ -- 2019-05-16 11:59
 --------------------------------------------------------------
 0. deployed flask app on apache2 server on DO droplet
 ==============================================================
+
+joyceL -- 2019-05-17 00:31
+--------------------------------------------------------------
+0. search feature works, gets info from coord.py to show a list of results
+1. clicking "view" for a result leads to /info with a static map with title
+==============================================================

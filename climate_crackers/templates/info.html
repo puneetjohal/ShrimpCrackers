@@ -1,0 +1,9 @@
+{% extends "parent.html" %}
+{% block content %}
+<h2> {{location}}</h2>
+<div id="map"></div>
+<script> var latitude = {{latitude}};
+  var longitude = {{longitude}}</script>
+<script src="../static/map.js"></script>
+{% endblock %}
+

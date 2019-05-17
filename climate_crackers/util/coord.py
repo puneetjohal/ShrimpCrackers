@@ -14,8 +14,8 @@ def getOptions(city):
     response = urllib.request.urlopen(geocode+city)
     options = json.loads(response.read())
     results = options['results'][0]['locations']
-    print(results)
-    print(len(results))
+    # print(results)
+    # print(len(results))
     retlist = []
     for x in range(0, len(results)):
         alist = []
@@ -24,10 +24,15 @@ def getOptions(city):
         alist.append(results[x]['adminArea4']) #county
         alist.append(results[x]['adminArea3']) #state
         alist.append(results[x]['adminArea1']) #country
-        #alist.append(results[x]['latLng']['lat'])
-        #alist.append(results[x]['latLng']['lng'])
+        alist.append(results[x]['latLng']['lat'])
+        alist.append(results[x]['latLng']['lng'])
         retlist.append(alist)
+    # print(retlist)
+    for place in retlist:
+        for i in range (len(place)):
+            if place[i]=="":
+                place[i]="N/A"
     print(retlist)
     return retlist
-    
+
 getOptions("Brooklyn")

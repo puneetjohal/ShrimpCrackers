@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, flash, session, url_for, redirect
 
-from util import db
+from util import db, coord
 
 app = Flask(__name__)
 
@@ -12,8 +12,8 @@ app.secret_key=os.urandom(32)
 def home():
 	if "logged_in" in session:
 		data = db.get_watchlist(session["logged_in"])
-		return render_template("home.html", title = "Home", heading = "Hello " + session["logged_in"] + "!", user = session["logged_in"], logged_in = True, watchilist_data = data)
-	return render_template("home.html", title = "Home", heading = "Hello Guest!", logged_in = False)
+		return render_template("home.html", title = "Home", heading = "Hello " + session["logged_in"] + "!", user = session["logged_in"], logged_in = True)
+	return render_template("home.html", title = "Home", heading = "Hello Guest!")
 
 # ================Accounts================
 @app.route("/auth", methods = ["GET", "POST"])
@@ -67,7 +67,7 @@ def add_user():
 def logout():
 	if session.get("logged_in"):
 		session.pop("logged_in")
-		print(session)
+		# print(session)
 	return redirect(url_for("home"))
 
 # ================Watchlist================
@@ -95,7 +95,19 @@ def rm_wl():
 @app.route("/info")
 def load_info():
         status  = "logged_in" in session
-        return render_template("info.html", logged_in=status)
+        # loc_name = "Unknown"
+        loc_name = request.args["place_info"]
+        lat = request.args["lat"]
+        longi = request.args["long"]
+        return render_template("info.html", logged_in=status, latitude=lat, longitude=longi, location=loc_name)
+
+# ================search================
+@app.route("/search")
+def load_results():
+        labels = ["neighborhood","city","county","state","country"]
+        location = request.args["search_location"]
+        result = coord.getOptions(location)
+        return render_template("search.html",labels=labels,result=result)
 
 if __name__ == "__main__":
         app.debug = True
