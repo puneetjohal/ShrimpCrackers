@@ -158,3 +158,9 @@ joyceL -- 2019-05-17 00:31
 0. search feature works, gets info from coord.py to show a list of results
 1. clicking "view" for a result leads to /info with a static map with title
 ==============================================================
+
+puneetJ -- 2019-05-17 8:25
+--------------------------------------------------------------
+0. fixed apache server error that occured because of outdated
+wsgi module
+==============================================================
