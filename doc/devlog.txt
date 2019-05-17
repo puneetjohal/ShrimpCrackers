@@ -58,11 +58,35 @@ puneetJ -- 2019-05-10 12:40
 1. Created a project on GitHub and added to-do tasks
 ==============================================================
 
+all -- 2019-05-10 1:00
+--------------------------------------------------------------
+0. Looked over feedback, most of which was positive. Only two
+suggestions were given to us by both teams that reviewed our 
+design doc.
+1. The first suggestion was that we had too many python files
+in our component map. We decided to not take this suggestion
+because we liked that all relevant functions were in their 
+own files and felt that it was more organized.
+2. The second suggestion given to us was "Kanye 2020". We
+ignored this suggestion as well.
+==============================================================
+
+taniaC -- 2019-05-12 15:00
+--------------------------------------------------------------
+0. create website logo
+==============================================================
+
 joyceL -- 2019-05-13 07:27
 --------------------------------------------------------------
 0. set up db
 1. set up flask app with login, register, and root routes
 2. set up templates for said routes + base template
+==============================================================
+
+taniaC -- 2019-05-13 13:40
+--------------------------------------------------------------
+0. set up website theme on homepage, login, and register
+1. edit logo
 ==============================================================
 
 sophiaX -- 2019-05-13 22:00
@@ -87,6 +111,12 @@ in our project
 2. removed api kb cards for apis we are no longer using
 ==============================================================
 
+taniaC -- 2019-05-15 13:20
+--------------------------------------------------------------
+0. fix headings and titles
+1. apply theme to watchlist
+==============================================================
+
 puneetJ -- 2019-05-15 15:01
 --------------------------------------------------------------
 0. found a free US counties map svg and added it to the repo
@@ -105,4 +135,9 @@ sophiaX -- 2019-05-16 12:45
    (need to figure out appropriate range for the offset)
 2. Created a function to get historical weather data on the city
    (needs polishing, currently very slow and only gets EMNT data)
+==============================================================
+
+taniaC -- 2019-05-16 13:29
+--------------------------------------------------------------
+0. update devlog 
 ==============================================================
