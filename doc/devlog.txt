@@ -147,3 +147,8 @@ puneetJ -- 2019-05-16 10:55
 0. corrected repo structure in anticipation of deploying flask
 app on apache2 server
 ==============================================================
+
+puneetJ -- 2019-05-16 11:59
+--------------------------------------------------------------
+0. deployed flask app on apache2 server on DO droplet
+==============================================================
