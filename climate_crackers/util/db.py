@@ -1,10 +1,15 @@
 import sqlite3
-DB_FILE = "data/watchlist.db"
+import os
+
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
+
+DB_FILE = DIR + "data/watchlist.db"
 
 # ==================== Init ====================
 def create_tables():
     """Creates tables for users' account info and watchlist."""
-    db = sqlite3.connect("../" + DB_FILE)
+    db = sqlite3.connect(DB_FILE)
     c = db.cursor()
     command = "CREATE TABLE user_info (username TEXT, password TEXT)"
     c.execute(command)
