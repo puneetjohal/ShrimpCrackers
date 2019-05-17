@@ -19,19 +19,14 @@ def getOptions(city):
     retlist = []
     for x in range(0, len(results)):
         alist = []
-        alist.append(results[x]['adminArea6']) #neighborhood
-        alist.append(results[x]['adminArea5']) #city
-        alist.append(results[x]['adminArea4']) #county
-        alist.append(results[x]['adminArea3']) #state
-        alist.append(results[x]['adminArea1']) #country
-        alist.append(results[x]['latLng']['lat'])
-        alist.append(results[x]['latLng']['lng'])
-        retlist.append(alist)
-    # print(retlist)
-    for place in retlist:
-        for i in range (len(place)):
-            if place[i]=="":
-                place[i]="N/A"
+        if results[x]['adminArea5'] != '':
+            alist.append(results[x]['adminArea5']) #city
+            alist.append(results[x]['adminArea4']) #county
+            alist.append(results[x]['adminArea3']) #state
+            alist.append(results[x]['adminArea1']) #country
+            alist.append(results[x]['latLng']['lat'])
+            alist.append(results[x]['latLng']['lng'])
+            retlist.append(alist)
     print(retlist)
     return retlist
 

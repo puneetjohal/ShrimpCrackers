@@ -3,6 +3,7 @@ import urllib.request
 
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
+#Memoization
 def getcityid(city, state):
     offset = 0
     for x in range(0,10):
@@ -18,19 +19,42 @@ def getcityid(city, state):
     print("NOT FOUND")
     return "NOT FOUND"
 
-def getInfo(city, state):
+def getInfoCity(city, state):
     ID = getcityid(city, state)
     if ID == "NOT FOUND":
         return "NOT FOUND"
-    url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid="+ ID +"&startdate=2009-04-01&enddate=2010-04-01&datatypeid=EMNT&limit=100"
+    url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid="+ ID +"&startdate=2009-04-01&enddate=2010-04-01&datatypeid=TAVG&limit=100"
     req = urllib.request.Request(url, data=None, headers=token)
     response = urllib.request.urlopen(req)
     data = json.loads(response.read())
     print(data['results'])
     return data['results']
 
-getInfo("Los Angeles", "CA")
+#getInfoCity("Los Angeles", "CA")
 
+def getCountyID():
+    cntyIDs = {}
+    offset = 0
+    for x in range(0, 4):
+        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        for i in range(0, len(data['results'])):
+            cntyIDs[data['results'][i]['name']] = data['results'][i]['id']
+        offset += 1000
+    return cntyIDs
+
+getCountyID()
+
+def getCountyInfo():
+    cntyIDs = getCountyID()
+    for x in getCountyID:
+        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid="+ getCountyID(x) +"&startdate=2009-04-01&enddate=2010-04-01&datatypeid=EMNT&limit=1000"
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(respose.read())
+    
 '''
 GET DATASETS
 url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets/"
