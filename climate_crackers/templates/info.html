@@ -1,7 +1,12 @@
 {% extends "parent.html" %}
 {% block content %}
-<h2> {{location}}</h2>
+<h2 id="location">{{location}}</h2>
 <div id="map"></div>
+{% if logged_in %}
+<form action="/add_wl">
+  <button type="submit">WATCH</button>
+</form>
+{% endif %}
 <script> var latitude = {{latitude}};
   var longitude = {{longitude}}</script>
 <script src="../static/map.js"></script>

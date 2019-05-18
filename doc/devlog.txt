@@ -164,3 +164,12 @@ puneetJ -- 2019-05-17 8:25
 0. fixed apache server error that occured because of outdated
 wsgi module
 ==============================================================
+
+joyceL -- 2019-05-17 22:42
+--------------------------------------------------------------
+0. watchlist feature semi-working
+   (can add to watchlist, info page reloads after adding)
+   (cannot remove something from watchlist)
+   (cannot click on items in watchlist)
+==============================================================
+

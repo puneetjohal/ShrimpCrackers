@@ -2,31 +2,33 @@
 {% block content %}
 
 {% for place in result %}
-<ul>
-{% for i in range(5) %}
-{% if place[i] != "N/A" %}
+<ul class="result_item">
+{% for i in range(4) %}
+{% if place[i] != "" %}
 <li>{{labels[i]}}: {{place[i]}}</li>
 {% endif %}
 {% endfor %}
 </ul>
-<form action="/info">
-  <input type="hidden" name="lat" value={{place[5]}}>
-  <input type="hidden" name="long" value={{place[6]}}>
+<form action="/info" class="view_form">
+  <input type="hidden" name="lat" value={{place[4]}}>
+  <input type="hidden" name="long" value={{place[5]}}>
   <input type="submit" value="view">
 </form>
 
 {% endfor %}
 <script>
-  var lists = document.getElementsByTagName("ul");
-  var forms = document.getElementsByTagName("form");
+  var lists = document.getElementsByClassName("result_item");
+  var forms = document.getElementsByClassName("view_form");
   for (var i = 0; i<lists.length; i++) {
-    console.log(lists[i]);
-    var place = lists[i].firstElementChild.innerHTML;
-    place = place.split(" ")[1];
+    // console.log(lists[i]);
+    // console.log(forms[i]);
+    var city = lists[i].firstElementChild.innerHTML;
+    city = city.split(":")[1]
+    // console.log(city);
     var hid = document.createElement("input")
     hid.setAttribute("type","hidden");
-    hid.setAttribute("name","place_info");
-    hid.setAttribute("value",place);
+    hid.setAttribute("name","city");
+    hid.setAttribute("value",city.substring(1));
     forms[i].append(hid);
   }
 </script>

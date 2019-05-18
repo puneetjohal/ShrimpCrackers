@@ -80,14 +80,16 @@ def load_wl():
 @app.route("/add_wl", methods = ["GET", "POST"])
 def add_wl():
 	user = session["logged_in"]
-	location = request.forms("loc")
-	db.add_watchlist(user, location)
-	return redirect(url_for("load_wl")) # placeholder, should redirect to info page
+	location = request.args["loc"]
+	lat = request.args["lat"]
+	longi = request.args["long"]
+	db.add_watchlist(user, location, lat, longi)
+	return redirect(url_for("load_info", city=location, lat=lat, long=longi)) # placeholder, should redirect to info page
 
 @app.route("/rm_wl", methods = ["GET", "POST"])
 def rm_wl():
 	user = session["logged_in"]
-	location = request.forms("loc")
+	location = request.args("loc")
 	db.remove_watchlist(user, location)
 	return redirect(url_for("load_wl"))
 
@@ -96,18 +98,18 @@ def rm_wl():
 def load_info():
         status  = "logged_in" in session
         # loc_name = "Unknown"
-        loc_name = request.args["place_info"]
+        loc_name = request.args["city"]
         lat = request.args["lat"]
         longi = request.args["long"]
-        return render_template("info.html", logged_in=status, latitude=lat, longitude=longi, location=loc_name)
+        return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name)
 
 # ================search================
 @app.route("/search")
 def load_results():
-        labels = ["neighborhood","city","county","state","country"]
+        labels = ["city","county","state","country"]
         location = request.args["search_location"]
         result = coord.getOptions(location)
-        return render_template("search.html",labels=labels,result=result)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for " + labels, labels=labels,result=result)
 
 if __name__ == "__main__":
         app.debug = True
