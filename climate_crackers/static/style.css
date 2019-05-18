@@ -80,6 +80,21 @@
 .county-borders {
   fill: none;
   stroke: #000;
+  stroke-width: 0.3px;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+  pointer-events: none;
+}
+
+.states {
+  pointer-events:none;
+  fill-opacity: 0;
+}
+
+.state-borders {
+  pointer-events:none;
+  fill: none;
+  stroke: #000;
   stroke-width: 0.5px;
   stroke-linejoin: round;
   stroke-linecap: round;
