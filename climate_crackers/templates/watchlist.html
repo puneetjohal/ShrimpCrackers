@@ -23,9 +23,17 @@
       <!-- remove after testing -->
       {% for each in watchlist %}
       <tr>
-        <td><button>{{each}}</button></td>
+        <td><button>{{each[0]}}</button></td>
         <td>
-	  <form action = "/removeWatchlist">
+          <form action="/info">
+            <input type="hidden" name="city" value={{each[0]}}>
+            <input type="hidden" name="lat" value={{each[1]}}>
+            <input type="hidden" name="long" value={{each[2]}}>
+          </form>
+        </td>
+        <td>
+      <form action="/info">
+	  <form action = "/rm_wl">
 	    <div class="form-group">
 	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
 	    </div>
