@@ -173,3 +173,11 @@ joyceL -- 2019-05-17 22:42
    (cannot click on items in watchlist)
 ==============================================================
 
+puneetJ -- 2019-05-18 12:59
+--------------------------------------------------------------
+0. added us county map to homepage and setup js script for
+choropleth map implementation
+1. removed excess files from repo
+2. added favicon
+==============================================================
+
