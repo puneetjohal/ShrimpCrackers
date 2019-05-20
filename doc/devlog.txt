@@ -124,8 +124,9 @@ puneetJ -- 2019-05-15 15:01
 
 joyceL -- 2019-05-15 15:11
 --------------------------------------------------------------
-0. finish db functions / loading watchlist
-1. finished generating a map from locationIQ at /info route (not customizable based on long/lat yet)
+0. changed db schema for watchlist table
+1. finish db functions / loading watchlist
+2. finished generating a map from locationIQ at /info route (not customizable based on long/lat yet)
 ==============================================================
 
 sophiaX -- 2019-05-16 12:45
@@ -165,6 +166,12 @@ puneetJ -- 2019-05-17 8:25
 wsgi module
 ==============================================================
 
+taniaC -- 2019-05-17 13:30
+--------------------------------------------------------------
+0. add titles and headings to search and watchlist
+1. attempted to create and implement favicon
+==============================================================
+
 joyceL -- 2019-05-17 22:42
 --------------------------------------------------------------
 0. watchlist feature semi-working
@@ -173,11 +180,6 @@ joyceL -- 2019-05-17 22:42
    (cannot click on items in watchlist)
 ==============================================================
 
-taniaC -- 2019-05-17 13:30
---------------------------------------------------------------
-0. add titles and headings to search and watchlist
-1. attempted to create and implement favicon
-==============================================================
 
 puneetJ -- 2019-05-18 12:59
 --------------------------------------------------------------
@@ -192,4 +194,10 @@ taniaC -- 2019-05-20 14:15
 0. fixed heading error in search page
 1. beautify search page
 2. update devlog
+==============================================================
+
+joyceL -- 2019-05-20 15:15
+--------------------------------------------------------------
+0. watchlist feature fully working, but does not account for possible errors
+1. fix navbar login status for search results page
 ==============================================================
