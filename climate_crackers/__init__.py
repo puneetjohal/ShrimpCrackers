@@ -109,7 +109,7 @@ def load_results():
         labels = ["city","county","state","country"]
         location = request.args["search_location"]
         result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for " + labels, labels=labels,result=result)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result)
 
 if __name__ == "__main__":
         app.debug = True
