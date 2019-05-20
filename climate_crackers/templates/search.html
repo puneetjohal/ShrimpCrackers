@@ -17,12 +17,10 @@
       {% for place in result %}
       <tr class="result_item">
 	{% for i in range(4) %}
-	{% if place[i] != "" %}
         <td>{{place[i]}}</td>
-	{% endif %}
 	{% endfor %}
         <td>
-          <form action="/info" class="view_form">
+      <form action="/info" class="view_form">
 	    <input type="hidden" name="city" value="{{place[0]}}">
 	    <input type="hidden" name="lat" value={{place[4]}}>
 	    <input type="hidden" name="long" value={{place[5]}}>
@@ -36,21 +34,20 @@
   </table>
 </div>
 
-<script>
-  var lists = document.getElementsByClassName("result_item");
-  var forms = document.getElementsByClassName("view_form");
-  for (var i = 0; i<lists.length; i++) {
-				  // console.log(lists[i]);
-				  // console.log(forms[i]);
-				  var city = lists[i].firstElementChild.innerHTML;
-				  city = city.split(":")[1]
-				  // console.log(city);
-				  var hid = document.createElement("input")
-				  hid.setAttribute("type","hidden");
-				  hid.setAttribute("name","city");
-				  hid.setAttribute("value",city.substring(1));
-				  forms[i].append(hid);
-				  }
-				  </script>
+<!-- <script> -->
+<!--   var lists = document.getElementsByClassName("result_item"); -->
+<!--   var forms = document.getElementsByClassName("view_form"); -->
+<!--   for (var i = 0; i<lists.length; i++) { -->
+<!--     console.log(lists[i]); -->
+<!--     var city = lists[i].firstElementChild.innerHTML; -->
+<!-- 	city = city.split(":")[1] -->
+<!--     console.log(city); -->
+<!-- 	var hid = document.createElement("input") -->
+<!-- 	hid.setAttribute("type","hidden"); -->
+<!-- 	hid.setAttribute("name","city"); -->
+<!-- 	hid.setAttribute("value",city.substring(1)); -->
+<!-- 	forms[i].append(hid); -->
+<!-- 	} -->
+<!-- </script> -->
 
 {% endblock %}

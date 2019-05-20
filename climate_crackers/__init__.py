@@ -102,7 +102,7 @@ def load_results():
         labels = ["city","county","state","country"]
         location = request.args["search_location"]
         result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for " + labels, labels=labels,result=result, logged_in=status)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result, logged_in=status)
 
 # ================info================
 @app.route("/info")
@@ -118,14 +118,6 @@ def load_info():
                 on_watchlist = db.check_watchlist(session["logged_in"], loc_name, lat, longi)
         return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist)
 
-# ================search================
-@app.route("/search")
-def load_results():
-		status = "logged_in" in session
-        labels = ["city","county","state","country"]
-        location = request.args["search_location"]
-        result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result, logged_in=status)
 
 if __name__ == "__main__":
         app.debug = True
