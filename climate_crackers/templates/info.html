@@ -1,14 +1,22 @@
 {% extends "parent.html" %}
 {% block content %}
-<h2 id="location">{{location}}</h2>
+
 <div id="map"></div>
 {% if logged_in %}
+{% if on_watchlist %}
+<form action = "/rm_wl">
+  <button type="submit">STOP WATCHING</button>
+</form>
+{% else %}
 <form action="/add_wl">
   <button type="submit">WATCH</button>
 </form>
 {% endif %}
+{% endif %}
 <script> var latitude = {{latitude}};
-  var longitude = {{longitude}}</script>
+  var longitude = {{longitude}};
+  var loc = "{{location}}";
+</script>
 <script src="../static/map.js"></script>
 {% endblock %}
 

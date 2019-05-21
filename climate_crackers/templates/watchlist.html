@@ -10,33 +10,24 @@
     </thead>
     <tbody>
       <!-- remove after testing -->
-      <tr>
-        <td><a href="/#">test</a></td>
-        <td>
-	  <form action = "/removeWatchlist">
-	    <div class="form-group">
-	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
-	    </div>
-	  </form>
-        </td>
-      </tr>
-      <!-- remove after testing -->
       {% for each in watchlist %}
       <tr>
-        <td><button>{{each[0]}}</button></td>
         <td>
           <form action="/info">
-            <input type="hidden" name="city" value={{each[0]}}>
+            <button type="submit">{{each[0]}}</button>
+            <input type="hidden" name="city" value="{{each[0]}}">
             <input type="hidden" name="lat" value={{each[1]}}>
             <input type="hidden" name="long" value={{each[2]}}>
           </form>
         </td>
         <td>
-      <form action="/info">
 	  <form action = "/rm_wl">
 	    <div class="form-group">
-	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn" name = {{each}} value = "Remove from watchlist">Remove from Watchlist</button>
+	      <button type="submit" class="btn btn-outline-secondary btn-sm" id="remove_btn">Remove from Watchlist</button>
 	    </div>
+         <input type="hidden" name="city" value="{{each[0]}}">
+         <input type="hidden" name="lat" value={{each[1]}}>
+         <input type="hidden" name="long" value={{each[2]}}>
 	  </form>
         </td>
       </tr>

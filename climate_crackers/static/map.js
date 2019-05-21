@@ -13,11 +13,11 @@ img.setAttribute("src",URL);
 // console.log(img);
 map.append(img);
 
-var loc = document.getElementById("location").innerHTML;
+// var loc = document.getElementById("location").innerHTML;
 
 var form = document.getElementsByTagName("form")[1];
 var info = [loc, latitude, longitude];
-var names = ["loc", "lat", "long"];
+var names = ["city", "lat", "long"];
 
 
 for(var i = 0; i<3; i++) {

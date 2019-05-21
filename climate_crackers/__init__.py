@@ -80,7 +80,7 @@ def load_wl():
 @app.route("/add_wl", methods = ["GET", "POST"])
 def add_wl():
 	user = session["logged_in"]
-	location = request.args["loc"]
+	location = request.args["city"]
 	lat = request.args["lat"]
 	longi = request.args["long"]
 	db.add_watchlist(user, location, lat, longi)
@@ -88,28 +88,36 @@ def add_wl():
 
 @app.route("/rm_wl", methods = ["GET", "POST"])
 def rm_wl():
-	user = session["logged_in"]
-	location = request.args("loc")
-	db.remove_watchlist(user, location)
-	return redirect(url_for("load_wl"))
+        user = session["logged_in"]
+        location = request.args["city"]
+        lat = request.args["lat"]
+        longi = request.args["long"]
+        db.remove_watchlist(user, location, lat, longi)
+        return redirect(url_for("load_wl"))
+
+# ================search================
+@app.route("/search")
+def load_results():
+        status = "logged_in" in session
+        labels = ["city","county","state","country"]
+        location = request.args["search_location"]
+        result = coord.getOptions(location)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result, logged_in=status)
 
 # ================info================
 @app.route("/info")
 def load_info():
         status  = "logged_in" in session
+        on_watchlist = False
         # loc_name = "Unknown"
         loc_name = request.args["city"]
+        print(loc_name)
         lat = request.args["lat"]
         longi = request.args["long"]
-        return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name)
+        if status:
+                on_watchlist = db.check_watchlist(session["logged_in"], loc_name, lat, longi)
+        return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist)
 
-# ================search================
-@app.route("/search")
-def load_results():
-        labels = ["city","county","state","country"]
-        location = request.args["search_location"]
-        result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result)
 
 if __name__ == "__main__":
         app.debug = True
