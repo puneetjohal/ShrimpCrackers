@@ -10,7 +10,6 @@
 	<th>State</th>
 	<th>Country</th>
 	<th></th>
-	<th></th>
       </tr>
     </thead>
     <tbody>
@@ -27,27 +26,10 @@
 	    <input type="submit" class="btn btn-outline-secondary btn-sm" value="view">
 	  </form>
         </td>
-		<td>add to watchlist button</td>
       </tr>
       {% endfor %}
     </tbody>
   </table>
 </div>
-
-<!-- <script> -->
-<!--   var lists = document.getElementsByClassName("result_item"); -->
-<!--   var forms = document.getElementsByClassName("view_form"); -->
-<!--   for (var i = 0; i<lists.length; i++) { -->
-<!--     console.log(lists[i]); -->
-<!--     var city = lists[i].firstElementChild.innerHTML; -->
-<!-- 	city = city.split(":")[1] -->
-<!--     console.log(city); -->
-<!-- 	var hid = document.createElement("input") -->
-<!-- 	hid.setAttribute("type","hidden"); -->
-<!-- 	hid.setAttribute("name","city"); -->
-<!-- 	hid.setAttribute("value",city.substring(1)); -->
-<!-- 	forms[i].append(hid); -->
-<!-- 	} -->
-<!-- </script> -->
 
 {% endblock %}
