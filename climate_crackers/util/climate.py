@@ -1,16 +1,17 @@
 import json
 import urllib.request
+import time
 
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
-#Memoization
 def getcityid(city, state):
     offset = 0
-    for x in range(0,10):
+    for x in range(0,2):#total: 1988 cities
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CITY&limit=1000&offset=" + str(offset)
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
+        print(len(data['results']))
         for x in range(0, len(data['results'])):
             if city in data['results'][x]['name'] and state in data['results'][x]['name']:
                 print(data['results'][x]['id'])
@@ -18,6 +19,8 @@ def getcityid(city, state):
         offset += 1000
     print("NOT FOUND")
     return "NOT FOUND"
+
+#getcityid("Fort Myers", "TX")
 
 def getInfoCity(city, state):
     ID = getcityid(city, state)
@@ -35,26 +38,35 @@ def getInfoCity(city, state):
 def getCountyID():
     cntyIDs = {}
     offset = 0
-    for x in range(0, 4):
+    for x in range(0, 4):#total: 3,179 counties
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
+        print(len(data['results']))
         for i in range(0, len(data['results'])):
             cntyIDs[data['results'][i]['name']] = data['results'][i]['id']
         offset += 1000
     return cntyIDs
 
-getCountyID()
-
 def getCountyInfo():
     cntyIDs = getCountyID()
-    for x in getCountyID:
-        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid="+ getCountyID(x) +"&startdate=2009-04-01&enddate=2010-04-01&datatypeid=EMNT&limit=1000"
+    tavgInfo = {}
+    for x in cntyIDs:
+        info = []
+        tavgInfo[x] = info
+        url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOY&locationid=" +cntyIDs[x] + "&startdate=2001-01-01&enddate=2010-01-01&limit=1000"
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
-        data = json.loads(respose.read())
-    
+        data = json.loads(response.read())
+        for i in range(0, data['results']):
+            print(data['results'][0]['date'])
+            print(data['results'][0]['value'])
+        time.sleep(1)
+        
+getCountyInfo()
+
+
 '''
 GET DATASETS
 url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets/"
