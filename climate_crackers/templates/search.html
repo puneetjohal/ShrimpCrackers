@@ -10,6 +10,9 @@
 	<th>State</th>
 	<th>Country</th>
 	<th></th>
+	{% if logged_in %}
+	<th></th>
+	{% endif %}
       </tr>
     </thead>
     <tbody>
@@ -19,13 +22,24 @@
         <td>{{place[i]}}</td>
 	{% endfor %}
         <td>
-      <form action="/info" class="view_form">
+	  <form action="/info" class="view_form">
 	    <input type="hidden" name="city" value="{{place[0]}}">
 	    <input type="hidden" name="lat" value={{place[4]}}>
 	    <input type="hidden" name="long" value={{place[5]}}>
-	    <input type="submit" class="btn btn-outline-secondary btn-sm" value="view">
+	    <input type="submit" class="btn btn-outline-secondary btn-sm" value="View">
 	  </form>
         </td>
+	{% if logged_in %}
+	{% if on_watchlist %}
+	<td action = "/rm_wl">
+	  <button type="submit" class="btn btn-outline-secondary btn-sm">Remove from Watchlist</button>
+	</td>
+	{% else %}
+	<td action="/add_wl">
+	  <button type="submit" class="btn btn-outline-secondary btn-sm">Add to Watchlist</button>
+	</td>
+	{% endif %}
+	{% endif %}
       </tr>
       {% endfor %}
     </tbody>

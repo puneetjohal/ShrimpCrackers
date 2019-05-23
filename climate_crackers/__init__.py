@@ -99,10 +99,9 @@ def rm_wl():
 @app.route("/search")
 def load_results():
         status = "logged_in" in session
-        labels = ["city","county","state","country"]
         location = request.args["search_location"]
         result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", labels=labels,result=result, logged_in=status)
+        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", result=result, logged_in=status)
 
 # ================info================
 @app.route("/info")

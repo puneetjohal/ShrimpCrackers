@@ -1,18 +1,20 @@
 {% extends "parent.html" %}
-{% block content %}
 
+{% block content %}
 <div id="map"></div>
+
 {% if logged_in %}
 {% if on_watchlist %}
 <form action = "/rm_wl">
-  <button type="submit">STOP WATCHING</button>
+  <button type="submit" class="btn btn-outline-secondary btn-sm">Remove from Watchlist</button>
 </form>
 {% else %}
 <form action="/add_wl">
-  <button type="submit">WATCH</button>
+  <button type="submit" class="btn btn-outline-secondary btn-sm">Add to Watchlist</button>
 </form>
 {% endif %}
 {% endif %}
+
 <script> var latitude = {{latitude}};
   var longitude = {{longitude}};
   var loc = "{{location}}";

@@ -9,12 +9,11 @@
       </tr>
     </thead>
     <tbody>
-      <!-- remove after testing -->
       {% for each in watchlist %}
       <tr>
         <td>
           <form action="/info">
-            <button type="submit">{{each[0]}}</button>
+            <button type="submit" class="btn btn-link">{{each[0]}}</button>
             <input type="hidden" name="city" value="{{each[0]}}">
             <input type="hidden" name="lat" value={{each[1]}}>
             <input type="hidden" name="long" value={{each[2]}}>
