@@ -207,3 +207,10 @@ taniaC -- 2019-05-23 13:53
 1. started implementing a watchlist button on the search page
 2. update devlog
 ==============================================================
+
+puneetJ-- 2019-05-24 1:45
+--------------------------------------------------------------
+0. added a slider to the landing page
+1. added a year display that changes depending on the position
+of the slider
+==============================================================
