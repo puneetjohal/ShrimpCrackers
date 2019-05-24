@@ -35,3 +35,10 @@ d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, u
       .attr("d", path(topojson.mesh(us, us.objects.states, function(a, b) { return a !== b; })));
 
 });
+
+var slider = document.getElementById("year")
+var display = document.getElementById("current_year")
+display.innerHTML = slider.value;
+slider.oninput = function() {
+  display.innerHTML = this.value;
+}
