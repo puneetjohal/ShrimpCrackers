@@ -210,7 +210,7 @@ taniaC -- 2019-05-23 13:53
 
 puneetJ-- 2019-05-24 1:45
 --------------------------------------------------------------
-0. added a slider to the landing page
+0. added a slider on top of the d3 us map
 1. added a year display that changes depending on the position
 of the slider
 ==============================================================
