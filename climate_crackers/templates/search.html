@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="table-responsive">
-  <table class="table table-hover text-center" align="center" width="100%">
+  <table class="table table-hover text-center" width="100%">
     <thead>
       <tr class="text-white" style="background-color: #8192d9;">
         <th>City</th>
@@ -10,10 +10,8 @@
 	<th>State</th>
 	<th>Country</th>
 	<th></th>
-	{% if logged_in %}
 	<th></th>
-	{% endif %}
-      </tr>
+	  </tr>
     </thead>
     <tbody>
       {% for place in result %}
