@@ -13,7 +13,7 @@ def home():
 	if "logged_in" in session:
 		data = db.get_watchlist(session["logged_in"])
 		return render_template("home.html", title = "Home", heading = "Hello " + session["logged_in"] + "!", user = session["logged_in"], logged_in = True)
-	return render_template("home.html", title = "Home", heading = "Hello Guest!")
+	return render_template("home.html", title = "Home", heading = "Hello Guest!", logged_in = False)
 
 # ================Accounts================
 @app.route("/auth", methods = ["GET", "POST"])
@@ -73,50 +73,47 @@ def logout():
 # ================Watchlist================
 @app.route("/watchlist")
 def load_wl():
-	user = session["logged_in"]
-	locations = db.get_watchlist(user)
-	return render_template("watchlist.html", title = "Watchlist", heading = "Watchlist", watchlist = locations, logged_in=True)
+    locations = db.get_watchlist(session["logged_in"])
+    return render_template("watchlist.html", title = "Watchlist", heading = "Watchlist", watchlist = locations, logged_in=True)
 
-@app.route("/add_wl", methods = ["GET", "POST"])
-def add_wl():
-	user = session["logged_in"]
-	location = request.args["city"]
-	lat = request.args["lat"]
-	longi = request.args["long"]
-	db.add_watchlist(user, location, lat, longi)
-	return redirect(url_for("load_info", city=location, lat=lat, long=longi)) # placeholder, should redirect to info page
-
-@app.route("/rm_wl", methods = ["GET", "POST"])
-def rm_wl():
-        user = session["logged_in"]
-        location = request.args["city"]
-        lat = request.args["lat"]
-        longi = request.args["long"]
-        db.remove_watchlist(user, location, lat, longi)
-        return redirect(url_for("load_wl"))
-
+@app.route("/change_wl", methods = ["GET", "POST"])
+def change_wl():
+    location = request.args["city"]
+    lat = request.args["lat"]
+    longi = request.args["long"]
+    if request.args["update"] == "Add to watchlist":
+        db.add_watchlist(session["logged_in"], location, lat, longi)
+    elif request.args["update"] == "Remove from watchlist":
+        db.remove_watchlist(session["logged_in"], location, lat, longi)
+    return redirect(url_for("load_info", city = location, lat = lat, long = longi))
+	
 # ================search================
 @app.route("/search")
 def load_results():
-        status = "logged_in" in session
-        location = request.args["search_location"]
-        result = coord.getOptions(location)
-        return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", result=result, logged_in=status)
+    status = "logged_in" in session
+    location = request.args["search_location"]
+    if (location == ""):
+        flash ("Please enter a location")
+    result = coord.getOptions(location)
+    on_watchlist = {}
+    if "logged_in" in session:
+        for each in result:
+            on_watchlist[each[1]] = db.check_watchlist(session["logged_in"], each[0], str(each[4]), str(each[5]))
+    #print(on_watchlist)
+    return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", result=result, on_watchlist=on_watchlist, logged_in=status)
 
 # ================info================
 @app.route("/info")
 def load_info():
-        status  = "logged_in" in session
-        on_watchlist = False
-        # loc_name = "Unknown"
-        loc_name = request.args["city"]
-        print(loc_name)
-        lat = request.args["lat"]
-        longi = request.args["long"]
-        if status:
-                on_watchlist = db.check_watchlist(session["logged_in"], loc_name, lat, longi)
-        return render_template("info.html", title = loc_name, heading = loc_name, logged_in=status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist)
-
+    status = "logged_in" in session
+    locations = db.get_watchlist(status)
+    loc_name = request.args["city"]
+    lat = request.args["lat"]
+    longi = request.args["long"]
+    on_watchlist = False
+    if "logged_in" in session:
+        on_watchlist = db.check_watchlist(session["logged_in"], loc_name, lat, longi)
+    return render_template("info.html", title = loc_name, heading = loc_name, logged_in = status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist)
 
 if __name__ == "__main__":
         app.debug = True

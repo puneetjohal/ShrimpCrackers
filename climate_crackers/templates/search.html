@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="table-responsive">
-  <table class="table table-hover text-center" width="100%">
+  <table class="table table-hover text-center" align="center" width="100%">
     <thead>
       <tr class="text-white" style="background-color: #8192d9;">
         <th>City</th>
@@ -29,17 +29,22 @@
 	    <input type="submit" class="btn btn-outline-secondary btn-sm" value="View">
 	  </form>
         </td>
-	{% if logged_in %}
-	{% if on_watchlist %}
-	<td action = "/rm_wl">
-	  <button type="submit" class="btn btn-outline-secondary btn-sm">Remove from Watchlist</button>
+        <td>
+	  {% if logged_in %}
+	  <form action = "/change_wl">
+	    <div class="form-group">
+              <input type="hidden" name="city" value="{{place[0]}}">
+	      <input type="hidden" name="lat" value={{place[4]}}>
+	      <input type="hidden" name="long" value={{place[5]}}>
+              {% if not on_watchlist[place[1]] %}
+              <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
+              {% else %}
+              <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
+              {% endif %}
+	    </div>
+	  </form>
+	  {% endif %}
 	</td>
-	{% else %}
-	<td action="/add_wl">
-	  <button type="submit" class="btn btn-outline-secondary btn-sm">Add to Watchlist</button>
-	</td>
-	{% endif %}
-	{% endif %}
       </tr>
       {% endfor %}
     </tbody>

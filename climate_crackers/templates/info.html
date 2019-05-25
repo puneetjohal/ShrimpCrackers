@@ -4,21 +4,22 @@
 <div id="map"></div>
 
 {% if logged_in %}
-{% if on_watchlist %}
-<form action = "/rm_wl">
-  <button type="submit" class="btn btn-outline-secondary btn-sm">Remove from Watchlist</button>
+<form action = "/change_wl">
+    <div class="form-group">
+        {% if not on_watchlist %}
+        <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
+        {% else %}
+        <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
+        {% endif %}
+    </div>
 </form>
-{% else %}
-<form action="/add_wl">
-  <button type="submit" class="btn btn-outline-secondary btn-sm">Add to Watchlist</button>
-</form>
-{% endif %}
 {% endif %}
 
 <script> var latitude = {{latitude}};
   var longitude = {{longitude}};
   var loc = "{{location}}";
 </script>
+
 <script src="../static/map.js"></script>
 {% endblock %}
 
