@@ -214,3 +214,11 @@ puneetJ-- 2019-05-24 1:45
 1. added a year display that changes depending on the position
 of the slider
 ==============================================================
+
+taniaC-- 2019-05-25 00:20
+--------------------------------------------------------------
+0. revamped all watchlist functions
+1. fixed all watchlist buttons
+2. tested all functions for efficiency and cleaned terminal output
+3. update devlog
+==============================================================

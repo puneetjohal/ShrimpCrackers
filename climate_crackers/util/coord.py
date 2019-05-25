@@ -27,7 +27,7 @@ def getOptions(city):
             alist.append(results[x]['latLng']['lat'])
             alist.append(results[x]['latLng']['lng'])
             retlist.append(alist)
-    print(retlist)
+    #print(retlist)
     return retlist
 
 getOptions("Brooklyn")
