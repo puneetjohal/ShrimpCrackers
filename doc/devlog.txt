@@ -222,3 +222,9 @@ taniaC-- 2019-05-25 00:20
 2. tested all functions for efficiency and cleaned terminal output
 3. update devlog
 ==============================================================
+
+taniaC-- 2019-05-26 16:33
+--------------------------------------------------------------
+0. created section in info page for data content
+3. update devlog
+==============================================================
