@@ -14,14 +14,7 @@
     <tbody>
       {% for each in watchlist %}
       <tr>
-        <td>
-          <form action="/info">
-            <button type="submit" class="btn btn-link">{{each[0]}}</button>
-            <input type="hidden" name="city" value="{{each[0]}}">
-            <input type="hidden" name="lat" value={{each[1]}}>
-            <input type="hidden" name="long" value={{each[2]}}>
-          </form>
-        </td>
+        <td><a href="/info?city={{each[0]}}&lat={{each[1]}}&long={{each[2]}}"> {{each[0]}} </a></td>
         <td>{{each[1]}}</td>
         <td>{{each[2]}}</td>
         <td>

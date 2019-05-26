@@ -73,8 +73,13 @@ def logout():
 # ================Watchlist================
 @app.route("/watchlist")
 def load_wl():
-    locations = db.get_watchlist(session["logged_in"])
-    return render_template("watchlist.html", title = "Watchlist", heading = "Watchlist", watchlist = locations, logged_in=True)
+    status = "logged_in" in session
+    if status:
+        locations = db.get_watchlist(status)
+        return render_template("watchlist.html", title = "Watchlist", heading = "Watchlist", watchlist = locations, logged_in=status)
+    else:
+        flash ("Please login to view Watchlist")
+        return render_template("login.html", title = "Login", heading = "Login")
 
 @app.route("/change_wl", methods = ["GET", "POST"])
 def change_wl():
@@ -95,6 +100,8 @@ def load_results():
     if (location == ""):
         flash ("Please enter a location")
     result = coord.getOptions(location)
+    if (len(result) < 1):
+        flash ("No location found. Please try again.")
     on_watchlist = {}
     if "logged_in" in session:
         for each in result:
