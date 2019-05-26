@@ -1,19 +1,24 @@
 {% extends "parent.html" %}
 
 {% block content %}
-<div id="map"></div>
-
-{% if logged_in %}
-<form action = "/change_wl">
-    <div class="form-group">
+<div class="row">
+  <div class="col">
+    <div id="map"></div>
+  </div>
+  <div class="col">
+    {% if logged_in %}
+    <form action = "/change_wl">
+      <div class="form-group">
         {% if not on_watchlist %}
         <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
         {% else %}
         <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
         {% endif %}
-    </div>
-</form>
-{% endif %}
+      </div>
+    </form>
+    {% endif %}
+  </div>
+</div>
 
 <script> var latitude = {{latitude}};
   var longitude = {{longitude}};

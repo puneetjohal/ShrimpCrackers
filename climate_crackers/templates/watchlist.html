@@ -25,12 +25,12 @@
         <td>{{each[1]}}</td>
         <td>{{each[2]}}</td>
         <td>
-            <form action = "/change_wl">
+          <form action = "/change_wl">
             <div class="form-group">
-                <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
-                <input type="hidden" name="city" value="{{each[0]}}">
-          <input type="hidden" name="lat" value={{each[1]}}>
-          <input type="hidden" name="long" value={{each[2]}}>
+              <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
+              <input type="hidden" name="city" value="{{each[0]}}">
+              <input type="hidden" name="lat" value={{each[1]}}>
+              <input type="hidden" name="long" value={{each[2]}}>
 	    </div>
 	  </form>
         </td>
