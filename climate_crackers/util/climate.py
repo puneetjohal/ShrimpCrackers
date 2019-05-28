@@ -4,6 +4,10 @@ import time
 
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
+#===============================================================================
+# COUNTY/CITY WEATHER INFORMATION FOR SEARCH FUNCTION
+#===============================================================================
+
 def getcityid(city, state):
     offset = 0
     for x in range(0,2):#total: 1988 cities
@@ -22,18 +26,44 @@ def getcityid(city, state):
 
 #getcityid("Fort Myers", "TX")
 
-def getInfoCity(city, state):
+def getcountyid(county, state):
+    offset = 0
+    for x in range(0, 4):#total: 3,179 counties
+        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        print(len(data['results']))
+        for i in range(0, len(data['results'])):
+            if county in data['results'][x]['name'] and state in data['results'][x]['name']:
+                print(data['results'][x]['id'])
+                return data['results'][x]['id']
+        offset += 1000
+    print("NOT FOUND")
+    return "NOT FOUND"
+
+def getSearchInfo(city, county, state):
     ID = getcityid(city, state)
     if ID == "NOT FOUND":
-        return "NOT FOUND"
-    url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid="+ ID +"&startdate=2009-04-01&enddate=2010-04-01&datatypeid=TAVG&limit=100"
+        ID = getcountyid()
+    stations = ""
+    url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" + ID
     req = urllib.request.Request(url, data=None, headers=token)
     response = urllib.request.urlopen(req)
     data = json.loads(response.read())
-    print(data['results'])
-    return data['results']
-
-#getInfoCity("Los Angeles", "CA")
+    for i in range(0, len(data['results'])):
+        s = data['results'][i]['id']
+        #remove the colon and everything before it
+        s = s.split(':', 1)[-1]
+        stations += s + ","
+    #remove trailing comma
+    stations = stations[:-1]
+    print(stations)
+    url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+    req = urllib.request.Request(url, data=None, headers=token)
+    response = urllib.request.urlopen(req)
+    data = json.loads(response.read())
+    return data
 
 
 #===============================================================================
@@ -58,38 +88,35 @@ def getCountyID():
         offset += 1000
     return cntyIDs
 
-def getCntyStations():
-    '''
-    returns a dictionary
-    keys: name of the county
-    value: string of the station ids that support TAVG
-    '''
-    CntyStations = {}
+def getCntyInfo():
+    info = {}
     cntyIDs = getCountyID()
     for x in cntyIDs:
+        #get the stations
         stations = ""
         url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" +cntyIDs[x]
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
         for i in range(0, len(data['results'])):
-            stations = stations + data['results'][i]['id'] + ","
+            s = data['results'][i]['id']
+            #remove the colon and everything before it
+            s = s.split(':', 1)[-1]
+            stations += s + ","
         #remove trailing comma
         stations = stations[:-1]
-        print(stations)
-        CntyStations[x] = stations
-        time.sleep(.05)
-    return CntyStations
-        
-def getCountyInfo():
-    CntyStations = getCntyStations()
-    for c in CntyStations:
-        info = []
-        url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + CntyStations[c] + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+        #get the info
+        url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
-        print(data)
-        
+        alist = []
+        for i in range(0, len(data)):
+            #INSERT INFO
+            if 'TAVG' in data[i]:
+                alist.append(data[i]['DATE'])
+                alist.append(data[i]['TAVG'])
+        info[x] = alist
+        print(x, alist)
 
-getCountyInfo()
+#getCntyInfo()

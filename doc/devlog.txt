@@ -228,3 +228,12 @@ taniaC-- 2019-05-26 16:33
 0. created section in info page for data content
 3. update devlog
 ==============================================================
+
+sophiaX -- 2019-05-27 21:18
+--------------------------------------------------------------
+0. CHANGE: Use NCEI Search Service API from NOAA in addition to the CDO API
+1. Successfully query from NOAA and NCEI for all county info
+   (need to put in DB or CSV for quicker landing page)
+2. Combined function that gets county stations and info
+3. Updated and Finished the function to get search information from the API
+==============================================================
