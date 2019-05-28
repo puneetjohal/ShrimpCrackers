@@ -35,7 +35,16 @@ def getInfoCity(city, state):
 
 #getInfoCity("Los Angeles", "CA")
 
+
+#===============================================================================
+# COUNTY WEATHER INFORMATION FOR LANDING PAGE
+#===============================================================================
 def getCountyID():
+    '''
+    returns a dictionary
+    keys: name of county
+    value: county id
+    '''
     cntyIDs = {}
     offset = 0
     for x in range(0, 4):#total: 3,179 counties
@@ -49,59 +58,38 @@ def getCountyID():
         offset += 1000
     return cntyIDs
 
-def getCountyInfo():
+def getCntyStations():
+    '''
+    returns a dictionary
+    keys: name of the county
+    value: string of the station ids that support TAVG
+    '''
+    CntyStations = {}
     cntyIDs = getCountyID()
-    tavgInfo = {}
     for x in cntyIDs:
-        info = []
-        tavgInfo[x] = info
-        url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOY&locationid=" +cntyIDs[x] + "&startdate=2001-01-01&enddate=2010-01-01&limit=1000"
+        stations = ""
+        url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" +cntyIDs[x]
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
-        for i in range(0, data['results']):
-            print(data['results'][0]['date'])
-            print(data['results'][0]['value'])
-        time.sleep(1)
+        for i in range(0, len(data['results'])):
+            stations = stations + data['results'][i]['id'] + ","
+        #remove trailing comma
+        stations = stations[:-1]
+        print(stations)
+        CntyStations[x] = stations
+        time.sleep(.05)
+    return CntyStations
         
+def getCountyInfo():
+    CntyStations = getCntyStations()
+    for c in CntyStations:
+        info = []
+        url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + CntyStations[c] + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        print(data)
+        
+
 getCountyInfo()
-
-
-'''
-GET DATASETS
-url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/datasets/"
-req = urllib.request.Request(url, data=None, headers={"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"})
-response = urllib.request.urlopen(req)
-data = json.loads(response.read())
-
-for x in range(0, len(data['results'])):
-    print(data['results'][x]['id'])
-    print(data['results'][x]['name'])
-'''
-'''
-GSOM SAMPLE QUERY
-url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/data?datasetid=GSOM&locationid=FIPS:01017&startdate=2009-04-01&enddate=2010-04-01&datatypeid=EMNT&limit=100"
-req = urllib.request.Request(url, data=None, headers=token)
-response = urllib.request.urlopen(req)
-data = json.loads(response.read())
-
-print(data['results'])
-'''
-'''
-GET COUNTIES
-url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY"
-req = urllib.request.Request(url, data=None, headers=token)
-response = urllib.request.urlopen(req)
-data = json.loads(response.read())
-
-print(data['results'])
-'''
-'''
-GET LOCATION CATEGORIES
-url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locationcategories?limit=1000"
-req = urllib.request.Request(url, data=None, headers=token)
-response = urllib.request.urlopen(req)
-data = json.loads(response.read())
-
-print(data['results'])
-'''
