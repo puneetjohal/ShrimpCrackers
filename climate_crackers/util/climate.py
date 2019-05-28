@@ -100,4 +100,25 @@ def getCntyInfo():
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
+        for i in range(0, len(data['results'])):
+            s = data['results'][i]['id']
+            #remove the colon and everything before it
+            s = s.split(':', 1)[-1]
+            stations += s + ","
+        #remove trailing comma
+        stations = stations[:-1]
+        #get the info
+        url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        alist = []
+        for i in range(0, len(data)):
+            #INSERT INFO
+            if 'TAVG' in data[i]:
+                alist.append(data[i]['DATE'])
+                alist.append(data[i]['TAVG'])
+        info[x] = alist
+        print(x, alist)
+
 #getCntyInfo()
