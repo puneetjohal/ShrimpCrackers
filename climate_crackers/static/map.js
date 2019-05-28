@@ -15,7 +15,8 @@ map.append(img);
 
 // var loc = document.getElementById("location").innerHTML;
 
-var form = document.getElementsByTagName("form")[1];
+var form = document.getElementsByTagName("form")[0];
+// console.log(form);
 var info = [loc, latitude, longitude];
 var names = ["city", "lat", "long"];
 
