@@ -29,3 +29,6 @@ Climate Crackers is a data visualization website that allows users to explore tr
 ##### MapQuest
 * Provide coordinates of a city based on its name
 * Register [here](https://developer.mapquest.com/plan_purchase/steps/business_edition/business_edition_free/register) to obtain a key; note the callback url field is optional
+##### Climate Data Online
+* Provides historical weather and climate data
+* Request a token [here](https://www.ncdc.noaa.gov/cdo-web/token)
