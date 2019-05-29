@@ -248,3 +248,9 @@ joyceL -- 2019-05-28 22:22
 0. finished precipitation bar graph on info page
 1. Updated README with launch instruction and descriptions for locationIQ & MapQuest APIs
 ==============================================================
+
+sophiaX -- 2019-05-29 14:23
+--------------------------------------------------------------
+0. updated the function to write all the county information to a json file
+1. Fixed keyword 'results' error for the function
+==============================================================
