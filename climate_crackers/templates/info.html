@@ -17,6 +17,7 @@
       </div>
     </form>
     {% endif %}
+    <svg id="t_graph"></svg>
   </div>
 </div>
 <div class="row" id="graph_container">
@@ -26,6 +27,7 @@
 <script> var latitude = {{latitude}};
   var longitude = {{longitude}};
   var loc = "{{location}}";
+  var data = {{tavg_data | safe}};
 </script>
 
 <script src="../static/map.js"></script>

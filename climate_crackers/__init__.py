@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, flash, session, url_for, redirect
 
-from util import db, coord
+from util import db, coord, climate
 
 app = Flask(__name__)
 
@@ -91,7 +91,7 @@ def change_wl():
     elif request.args["update"] == "Remove from watchlist":
         db.remove_watchlist(session["logged_in"], location, lat, longi)
     return redirect(url_for("load_info", city = location, lat = lat, long = longi))
-	
+
 # ================search================
 @app.route("/search")
 def load_results():
@@ -113,16 +113,19 @@ def load_results():
 @app.route("/info")
 def load_info():
     status = "logged_in" in session
-    locations = db.get_watchlist(status)
+    # locations = db.get_watchlist(status)
     loc_name = request.args["city"]
+    county = request.args["county"]
+    state = request.args["state"]
     lat = request.args["lat"]
     longi = request.args["long"]
+    avg_temp = climate.getSearchInfo(loc_name, county, state)
+    # print(avg_temp)
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], loc_name, lat, longi)
-    return render_template("info.html", title = loc_name, heading = loc_name, logged_in = status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist)
+    return render_template("info.html", title = loc_name, heading = loc_name, logged_in = status, latitude=lat, longitude=longi, location=loc_name, on_watchlist=on_watchlist,tavg_data=avg_temp)
 
 if __name__ == "__main__":
         app.debug = True
         app.run()
-        
