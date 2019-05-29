@@ -35,7 +35,6 @@ Climate Crackers is a data visualization website that allows users to explore tr
   $ sudo apt-get install python3.7
   $ python3.7 --version
 ```
-The terminal should now output `Python 3.7.1`.
 7. Install virtualenv by running `$ pip install virtualenv`
    * Make a venv by running `$ python3 -m venv ENV_DIR`
    * Activate it by running `$ . /ENV_DIR/bin/activate`
