@@ -131,7 +131,7 @@ def getCntyInfo():
                     alist.append({data[j]['DATE']: ""})
             info[x] = alist
     with open('tavg.json', 'w') as outfile:
-    json.dump(info, outfile)
+        json.dump(info, outfile)
 
 getCntyInfo()
 
