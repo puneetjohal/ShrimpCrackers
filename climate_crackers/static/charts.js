@@ -39,6 +39,10 @@ y = d3.scaleLinear()
   .domain([0, d3.max(fake_data, d => d.value)]).nice()
   .range([GRAPH_H - margin.bottom, margin.top]);
 
+var color = d3.scaleOrdinal()
+  .domain(fake_data, d => d.name)
+  .range(["#d6d6ea", "#9999cc"]);
+
 xAxis = g => g
   .attr("transform", `translate(0,${GRAPH_H - margin.bottom})`)
   .call(d3.axisBottom(x).tickSizeOuter(0));
@@ -62,7 +66,7 @@ var bar = p_graph.selectAll("g")
   .data(fake_data)
   .enter()
   .append("g")
-  .attr("fill", "steelblue");
+  .attr("fill", d => color(d.name));
   // .attr("transform", function (d, i) {
   //   return "translate(" + i * BAR_W + ", 0)"; });
 
