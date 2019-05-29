@@ -27,7 +27,7 @@ Climate Crackers is a data visualization website that allows users to explore tr
 1. SSH into your droplet by running `$ ssh <user>@<droplet_ip_address>`. Your user account should be part of the sudo group on the droplet.
 2. Move to the www directory using `$ cd ../../var/www/`
 3. Clone the repo by running `$ sudo git clone https://github.com/puneetjohal/ShrimpCrackers.git`
-4. Move into the repo directory using `$ cd climate_crackers/`. Use `$ sudo vim climate_crackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `sudo mv climate_crackers.conf /../../etc/apache2/sites-enabled/`
+4. Move into the repo directory using `$ cd climate_crackers/`. Use `$ sudo vim climate_crackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `$ sudo mv climate_crackers.conf /../../etc/apache2/sites-enabled/`
 5. Enable the site by running `$ sudo a2ensite climate_crackers`
 6. Make sure the latest version of Python (currently Python 3.7.1) is installed on your droplet by running `$ python3.7 --version`. The terminal should output `Python 3.7.1`. If not, run
 ```
