@@ -254,3 +254,10 @@ sophiaX -- 2019-05-29 14:23
 0. updated the function to write all the county information to a json file
 1. Fixed keyword 'results' error for the function
 ==============================================================
+
+puneetJ -- 2019-05-29 19:35
+--------------------------------------------------------------
+0. tested different features of the site and noted errors
+that needed to be fixed under "To Do" in the Projects tab.
+1. added apache launch instructions
+==============================================================
