@@ -90,7 +90,7 @@ def getCountyID():
     cntyIDs = {}
     offset = 0
     for x in range(0, 4):#total: 3,179 counties
-        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=10&offset=" + str(offset)
+        url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
