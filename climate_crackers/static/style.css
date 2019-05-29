@@ -135,3 +135,7 @@
   stroke-linecap: round;
   pointer-events: none;
 }
+
+#graph_container {
+    padding-top: 30px;
+}

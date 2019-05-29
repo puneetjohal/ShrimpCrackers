@@ -1,4 +1,4 @@
-var svg = d3.select("svg");
+var svg = d3.select("#landing_map");
 
 var path = d3.geoPath();
 

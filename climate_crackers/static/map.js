@@ -10,6 +10,8 @@ var URL = "https://maps.locationiq.com/v2/staticmap?key="+API_KEY+"&markers=icon
 var map = document.getElementById("map");
 var img = document.createElement("img");
 img.setAttribute("src",URL);
+img.setAttribute("width", "500px");
+img.setAttribute("height", "450px");
 // console.log(img);
 map.append(img);
 
@@ -30,4 +32,3 @@ for(var i = 0; i<3; i++) {
   form.append(new_ele);
   // console.log(form);
 }
-
