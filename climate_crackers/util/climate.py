@@ -87,7 +87,7 @@ def getCountyID():
     keys: name of county
     value: county id
     '''
-    cntyIDs = {}
+    cntyIDs = [4,000]
     offset = 0
     for x in range(0, 4):#total: 3,179 counties
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
@@ -96,16 +96,22 @@ def getCountyID():
         data = json.loads(response.read())
         print(len(data['results']))
         for i in range(0, len(data['results'])):
-            cntyIDs[data['results'][i]['name']] = data['results'][i]['id']
+            cntyIDs.append([data['results'][i]['name'], data['results'][i]['id']])
         offset += 1000
-    return cntyIDs
+    with open('cntyIDs.json', 'w') as outfile:
+        json.dump(cntyIDs, outfile)
 
-def getCntyInfo():
-    info = {}
-    cntyIDs = getCountyID()
-    for x in cntyIDs:
+#getCountyID()
+        
+def getStations():
+    with open('cntyIDs.json') as json_file:
+        cntyIDs = json.load(json_file)
+    info = []
+    for x in range(0, 1000):
         #get the stations
         stations = ""
+        print(cntyIDs[x][0])
+        '''
         url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" +cntyIDs[x]
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
@@ -118,20 +124,31 @@ def getCntyInfo():
                 stations += s + ","
             #remove trailing comma
             stations = stations[:-1]
-            #get the info
-            url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
-            req = urllib.request.Request(url, data=None, headers=token)
-            response = urllib.request.urlopen(req)
-            data = json.loads(response.read())
-            alist = []
-            for j in range(0, len(data)):
-                if 'TAVG' in data[j]:
-                    alist.append({data[j]['DATE']:data[j]['TAVG']})
-                else:
-                    alist.append({data[j]['DATE']: ""})
-            info[x] = alist
+            info.append([cntyIDs[x][0],stations])
+        '''
+    with open('stations.json', 'w') as outfile:
+        json.dump(info, outfile)
+
+getStations()
+
+def getCntyInfo():
+    with open('stations.json') as json_file:
+        stations = json.load(json_file)
+    info = {}
+    for x in stations:
+        #get the info
+        url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations[x] + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+        alist = []
+        for j in range(0, len(data)):
+            if 'TAVG' in data[j]:
+                alist.append({data[j]['DATE']:data[j]['TAVG']})
+            else:
+                alist.append({data[j]['DATE']: ""})
+        info[x] = alist
     with open('tavg.json', 'w') as outfile:
         json.dump(info, outfile)
 
-getCntyInfo()
-
+#getCntyInfo()
