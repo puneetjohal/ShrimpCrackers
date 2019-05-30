@@ -61,11 +61,11 @@ puneetJ -- 2019-05-10 12:40
 all -- 2019-05-10 1:00
 --------------------------------------------------------------
 0. Looked over feedback, most of which was positive. Only two
-suggestions were given to us by both teams that reviewed our 
+suggestions were given to us by both teams that reviewed our
 design doc.
 1. The first suggestion was that we had too many python files
 in our component map. We decided to not take this suggestion
-because we liked that all relevant functions were in their 
+because we liked that all relevant functions were in their
 own files and felt that it was more organized.
 2. The second suggestion given to us was "Kanye 2020". We
 ignored this suggestion as well.
@@ -105,7 +105,7 @@ gave us enough calls
 
 puneetJ -- 2019-05-15 10:55
 --------------------------------------------------------------
-0. updated devlog to reflect the apis that we will be using 
+0. updated devlog to reflect the apis that we will be using
 in our project
 1. added api kb card for mapquest api
 2. removed api kb cards for apis we are no longer using
@@ -255,9 +255,19 @@ sophiaX -- 2019-05-29 14:23
 1. Fixed keyword 'results' error for the function
 ==============================================================
 
+joyceL -- 2019-05-29 15:00
+--------------------------------------------------------------
+0. connected search function from climate.py to charts.js; data can be retrieved correctly, but line graph doesn't display properly yet
+==============================================================
+
 puneetJ -- 2019-05-29 19:35
 --------------------------------------------------------------
 0. tested different features of the site and noted errors
 that needed to be fixed under "To Do" in the Projects tab.
 1. added apache launch instructions
+==============================================================
+
+joyceL -- 2019-05-30 12:25
+--------------------------------------------------------------
+0. Display line graph for average temperature of a given location on info page
 ==============================================================

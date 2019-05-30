@@ -31,7 +31,7 @@ def getcityid(city, state):
 # print(getcityid("Brooklyn", "NY"))
 
 def getcountyid(county, state):
-    print("getting county id")
+    print("getting county id for", county, state)
     offset = 0
     for x in range(0, 4):#total: 3,179 counties
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
@@ -102,7 +102,7 @@ def getCountyID():
         json.dump(cntyIDs, outfile)
 
 #getCountyID()
-        
+
 def getStations():
     with open('cntyIDs.json') as json_file:
         cntyIDs = json.load(json_file)
@@ -129,7 +129,7 @@ def getStations():
     with open('stations.json', 'w') as outfile:
         json.dump(info, outfile)
 
-getStations()
+# getStations()
 
 def getCntyInfo():
     with open('stations.json') as json_file:
