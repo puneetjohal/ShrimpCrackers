@@ -33,9 +33,11 @@ def auth():
 		flash("Username or password is incorrect")
 		return redirect(url_for("login"))
 
-@app.route("/login")
+@app.route("/login", methods = ["GET", "POST"])
 def login():
-	return render_template("login.html", title = "Login", heading = "Login", type = "home")
+    #redirect = request.form["type"]
+    #print(redirect)
+    return render_template("login.html", title = "Login", heading = "Login")
 
 #Sends the user to the register.html to register a new account
 @app.route("/register")
@@ -122,7 +124,7 @@ def load_info():
     state = request.args["state"]
     lat = request.args["lat"]
     longi = request.args["long"]
-    avg_temp = climate.getSearchInfo(loc_name, county, state)
+    avg_temp = climate.getSearchInfo(city, county, state)
     # print(avg_temp)
     on_watchlist = False
     if "logged_in" in session:
