@@ -17,18 +17,18 @@ map.append(img);
 
 // var loc = document.getElementById("location").innerHTML;
 
-var form = document.getElementsByTagName("form")[0];
-// console.log(form);
-var info = [loc, latitude, longitude];
-var names = ["city", "lat", "long"];
-
-
-for(var i = 0; i<3; i++) {
-  var new_ele = document.createElement("input");
-  new_ele.setAttribute("type","hidden");
-  new_ele.setAttribute("name",names[i]);
-  new_ele.setAttribute("value", info[i]);
-  // console.log(new_ele);
-  form.append(new_ele);
-  // console.log(form);
-}
+// var form = document.getElementsByTagName("form")[0];
+// // console.log(form);
+// var info = [loc, latitude, longitude];
+// var names = ["city", "lat", "long"];
+//
+//
+// for(var i = 0; i<3; i++) {
+//   var new_ele = document.createElement("input");
+//   new_ele.setAttribute("type","hidden");
+//   new_ele.setAttribute("name",names[i]);
+//   new_ele.setAttribute("value", info[i]);
+//   // console.log(new_ele);
+//   form.append(new_ele);
+//   // console.log(form);
+// }

@@ -86,15 +86,23 @@ def load_wl():
 
 @app.route("/change_wl", methods = ["GET", "POST"])
 def change_wl():
+    page = request.args["page"]
     city = request.args["city"]
     state = request.args["state"]
+    county = request.args["county"]
     lat = request.args["lat"]
     longi = request.args["long"]
     if request.args["update"] == "Add to watchlist":
-        db.add_watchlist(session["logged_in"], city, state, lat, longi)
+        db.add_watchlist(session["logged_in"], city, county, state, lat, longi)
     elif request.args["update"] == "Remove from watchlist":
-        db.remove_watchlist(session["logged_in"], city, state, lat, longi)
-    return redirect(url_for("load_info", city = city, state = state, lat = lat, long = longi))
+        db.remove_watchlist(session["logged_in"], city, county, state, lat, longi)
+    if page == "watchlist":
+            return redirect(url_for("load_wl"))
+    elif page == "info":
+            return redirect(url_for("load_info", city = city, county = county, state = state, lat = lat, long = longi))
+    else:
+            location = request.args["search_location"]
+            return redirect(url_for("load_results", search_location=location))
 
 # ================search================
 @app.route("/search")
@@ -110,15 +118,15 @@ def load_results():
     if "logged_in" in session:
         for each in result:
             #print(each)
-            on_watchlist[each[1]] = db.check_watchlist(session["logged_in"], each[0], each[2], str(each[4]), str(each[5]))
+            on_watchlist[each[1]] = db.check_watchlist(session["logged_in"], each[0], each[1], each[2], str(each[4]), str(each[5]))
     #print(on_watchlist)
-    return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", result=result, on_watchlist=on_watchlist, logged_in=status)
+    return render_template("search.html", title = "Search Results", heading = "Search Results for \"" + location + "\"", result=result, on_watchlist=on_watchlist, logged_in=status, target=location)
 
 # ================info================
 @app.route("/info")
 def load_info():
     status = "logged_in" in session
-    locations = db.get_watchlist(status)
+    # locations = db.get_watchlist(status)
     city = request.args["city"]
     county = request.args["county"]
     state = request.args["state"]
@@ -128,8 +136,8 @@ def load_info():
     # print(avg_temp)
     on_watchlist = False
     if "logged_in" in session:
-        on_watchlist = db.check_watchlist(session["logged_in"], city, state, lat, longi)
-    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, tavg_data=avg_temp, on_watchlist=on_watchlist)
+        on_watchlist = db.check_watchlist(session["logged_in"], city, county, state, lat, longi)
+    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist)
 
 if __name__ == "__main__":
         app.debug = True
