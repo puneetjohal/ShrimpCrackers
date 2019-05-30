@@ -9,6 +9,10 @@
     {% if logged_in %}
     <form action = "/change_wl">
       <div class="form-group">
+        <input type="hidden" name="city" value="{{city}}">
+        <input type="hidden" name="state" value="{{state}}">
+	    <input type="hidden" name="lat" value={{lat}}>
+	    <input type="hidden" name="long" value={{long}}>
         {% if not on_watchlist %}
         <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
         {% else %}
@@ -23,9 +27,9 @@
     <svg id="p_graph"></svg>
 </div>
 
-<script> var latitude = {{latitude}};
-  var longitude = {{longitude}};
-  var loc = "{{location}}";
+<script> var latitude = {{lat}};
+  var longitude = {{long}};
+  var loc = "{{city}}";
 </script>
 
 <script src="../static/map.js"></script>

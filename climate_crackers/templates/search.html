@@ -22,6 +22,7 @@
         <td>
 	  <form action="/info" class="view_form">
 	    <input type="hidden" name="city" value="{{place[0]}}">
+        <input type="hidden" name="state" value="{{place[2]}}">
 	    <input type="hidden" name="lat" value={{place[4]}}>
 	    <input type="hidden" name="long" value={{place[5]}}>
 	    <input type="submit" class="btn btn-outline-secondary btn-sm" value="View">
@@ -31,11 +32,12 @@
 	  {% if logged_in %}
 	  <form action = "/change_wl">
 	    <div class="form-group">
-              <input type="hidden" name="city" value="{{place[0]}}">
+          <input type="hidden" name="city" value="{{place[0]}}">
+	      <input type="hidden" name="state" value="{{place[2]}}">
 	      <input type="hidden" name="lat" value={{place[4]}}>
 	      <input type="hidden" name="long" value={{place[5]}}>
               {% if not on_watchlist[place[1]] %}
-              <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
+              <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add to Watchlist</button>
               {% else %}
               <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
               {% endif %}
