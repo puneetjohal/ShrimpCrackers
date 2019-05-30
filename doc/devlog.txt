@@ -276,4 +276,5 @@ joyceL -- 2019-05-30 15:26
 --------------------------------------------------------------
 0. Fix watchlist error (keyError "county")
 1. Redirect to correct page after user changes watchlist
+2. Adjust zoom param in map.js to show better view of location
 ==============================================================
