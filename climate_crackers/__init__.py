@@ -108,7 +108,7 @@ def change_wl():
 @app.route("/search")
 def load_results():
     status = "logged_in" in session
-    location = request.args["search_location"]
+    location = request.args["search_location"].strip()
     if (location == ""):
         flash ("Please enter a location")
     result = coord.getOptions(location)

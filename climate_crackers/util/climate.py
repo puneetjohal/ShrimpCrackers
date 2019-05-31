@@ -61,8 +61,11 @@ def getcountyid(county, state):
 # print(getcountyid("Kings County", "NY"))
 
 def getSearchInfo(city, county, state):
-    ID = getcityid(city, state)
-    if ID == "NOT FOUND":
+    if city == "":
+        ID = "NOT FOUND"
+    else:
+        ID = getcityid(city, state)
+    if ID == "NOT FOUND" and county != "":
         ID = getcountyid(county, state)
     stations = ""
     url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" + ID
