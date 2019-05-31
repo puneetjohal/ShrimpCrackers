@@ -125,7 +125,6 @@ def load_info():
     lat = request.args["lat"]
     longi = request.args["long"]
     avg_temp = climate.getSearchInfo(city, county, state)
-    # print(avg_temp)
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], city, state, lat, longi)

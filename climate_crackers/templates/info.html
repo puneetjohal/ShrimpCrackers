@@ -2,7 +2,7 @@
 
 {% block content %}
 <div class="row">
-  <div class="col" style="padding-left: 0px;">
+  <div class="col">
     <div id="map"></div>
   </div>
   <div class="col">
@@ -21,11 +21,11 @@
       </div>
     </form>
     {% endif %}
-    <svg id="t_graph"></svg>
   </div>
 </div>
 <div class="row" id="graph_container">
-    <svg id="p_graph"></svg>
+    <svg class="mx-3" id="t_graph"></svg>
+    <svg class="mx-3" id="p_graph"></svg>
 </div>
 
 <script> var latitude = {{lat}};
