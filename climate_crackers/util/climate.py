@@ -8,51 +8,64 @@ token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 # COUNTY/CITY WEATHER INFORMATION FOR SEARCH FUNCTION
 #===============================================================================
 
-def getcityid(city, state):
-    print("getting city id")
+def getcitylist():
+    '''Return a dictionary of available cities in the format of "city":"id".'''
     offset = 0
+    ret_dict = {}
     for x in range(0,2):#total: 1988 cities
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CITY&limit=1000&offset=" + str(offset)
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
-        # print(len(data['results']))
-        for x in range(0, len(data['results'])):
-            # print(data['results'][x]['name'])
-            if city in data['results'][x]['name'] and state in data['results'][x]['name']:
-                print(data['results'][x]['id'])
-                return data['results'][x]['id']
+        for each in data['results']:
+            ret_dict[each['name']] = each['id']
         offset += 1000
-    # print("NOT FOUND")
+    return ret_dict
+
+city_list = getcitylist()
+# print(len(city_list))
+
+def getcityid(city, state):
+    print("getting city id for", city)
+    for key in city_list.keys():
+        if city in key and state in key:
+            return city_list[key]
     return "NOT FOUND"
 
-# getcityid("Fort Myers", "TX")
-# getcityid("Salt Lake City", "UT")
+# print(getcityid("Salt Lake City", "UT"))
 # print(getcityid("Brooklyn", "NY"))
 
-def getcountyid(county, state):
-    print("getting county id for", county, state)
+def getcountylist():
     offset = 0
+    ret_dict = {}
     for x in range(0, 4):#total: 3,179 counties
         url = "http://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=CNTY&limit=1000&offset=" + str(offset)
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
         data = json.loads(response.read())
-        # print(len(data['results']))
-        for i in range(0, len(data['results'])):
-            # print(data['results'][x]['name'])
-            # if state in data['results'][i]['name']:
-            #     print(data['results'][i]['name'])
-            if county in data['results'][i]['name'] and state in data['results'][i]['name']:
-                print(data['results'][i]['id'])
-                return data['results'][i]['id']
+        for each in data['results']:
+            ret_dict[each['name']] = each['id']
         offset += 1000
-    print("NOT FOUND")
+    return ret_dict
+
+county_list = getcountylist()
+# print(len(county_list))
+
+def getcountyid(county, state):
+    print("getting county id for", county)
+    for key in county_list.keys():
+        if county in key and state in key:
+            return county_list[key]
     return "NOT FOUND"
 
+# print(getcountyid("Kings County", "NY"))
+
 def getSearchInfo(city, county, state):
-    ID = getcityid(city, state)
-    if ID == "NOT FOUND":
+    if city == "":
+        ID = "NOT FOUND"
+    else:
+        ID = getcityid(city, state)
+    if ID == "NOT FOUND" and county != "":
         ID = getcountyid(county, state)
     stations = ""
     url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" + ID

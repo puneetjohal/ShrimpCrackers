@@ -38,6 +38,8 @@
           <input type="hidden" name="state" value="{{place[2]}}">
 	      <input type="hidden" name="lat" value={{place[4]}}>
 	      <input type="hidden" name="long" value={{place[5]}}>
+          <input type="hidden" name="search_location" value="{{target}}">
+          <input type="hidden" name="page" value="search">
               {% if not on_watchlist[place[1]] %}
               <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add to Watchlist</button>
               {% else %}

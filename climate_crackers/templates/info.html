@@ -11,10 +11,12 @@
       <div class="form-group">
         <input type="hidden" name="city" value="{{city}}">
         <input type="hidden" name="state" value="{{state}}">
+        <input type="hidden" name="county" value="{{county}}">
 	    <input type="hidden" name="lat" value={{lat}}>
 	    <input type="hidden" name="long" value={{long}}>
+        <input type="hidden" name="page" value="info">
         {% if not on_watchlist %}
-        <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add from Watchlist</button>
+        <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Add to watchlist">Add to Watchlist</button>
         {% else %}
         <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
         {% endif %}

@@ -271,3 +271,12 @@ joyceL -- 2019-05-30 12:25
 --------------------------------------------------------------
 0. Display line graph for average temperature of a given location on info page
 ==============================================================
+
+joyceL -- 2019-05-30 22:39
+--------------------------------------------------------------
+0. Fix watchlist error (keyError "county")
+1. Redirect to correct page after user changes watchlist
+2. Adjust zoom param in map.js to show better view of location
+3. Fix white space in search field error
+4. Optimized info page
+==============================================================

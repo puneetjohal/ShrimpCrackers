@@ -14,17 +14,29 @@
     <tbody>
       {% for each in watchlist %}
       <tr>
-        <td><a href="/info?city={{each[0]}}&lat={{each[2]}}&long={{each[3]}}"> {{each[0]}}, {{each[1]}} </a></td>
-        <td>{{each[2]}}</td>
+        <td>
+            <form action="/info">
+                <input type="hidden" name="city" value="{{each[0]}}">
+                <input type="hidden" name="county" value="{{each[1]}}">
+                <input type="hidden" name="state" value={{each[2]}}>
+                <input type="hidden" name="lat" value={{each[3]}}>
+                <input type="hidden" name="long" value={{each[4]}}>
+                <button type="submit">{{each[0]}}, {{each[2]}}</button>
+            </form>
+            <!-- <a href="/info?city={{each[0]}}&county={{each[1]}}&state={{each[2]}}&lat={{each[2]}}&long={{each[3]}}"> {{each[0]}}, {{each[2]}} </a> -->
+            </td>
         <td>{{each[3]}}</td>
+        <td>{{each[4]}}</td>
         <td>
           <form action = "/change_wl">
             <div class="form-group">
               <button type="submit" class="btn btn-outline-secondary btn-sm" name = "update" value = "Remove from watchlist">Remove from Watchlist</button>
               <input type="hidden" name="city" value="{{each[0]}}">
-              <input type="hidden" name="state" value={{each[1]}}>
-              <input type="hidden" name="lat" value={{each[2]}}>
-              <input type="hidden" name="long" value={{each[3]}}>
+              <input type="hidden" name="county" value="{{each[1]}}">
+              <input type="hidden" name="state" value={{each[2]}}>
+              <input type="hidden" name="lat" value={{each[3]}}>
+              <input type="hidden" name="long" value={{each[4]}}>
+              <input type="hidden" name="page" value="watchlist">
 	    </div>
 	  </form>
         </td>
