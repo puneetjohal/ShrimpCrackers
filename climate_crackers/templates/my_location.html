@@ -1,0 +1,24 @@
+{% extends "parent.html" %}
+{% block content %}
+<div class="col">
+    <h3 style="text-align:center;">{{address}}</h3>
+</div>
+
+<div class="col">
+  <div id="map"></div>
+</div>
+<div class="row" id="graph_container">
+    <svg class="mx-3" id="t_graph"></svg>
+    <svg class="mx-3" id="p_graph"></svg>
+</div>
+
+<script> var latitude = {{lat}};
+  var longitude = {{long}};
+  var loc = "{{city}}";
+  var data = {{tavg_data | safe}};
+</script>
+
+<script src="../static/map.js"></script>
+<script src="http://d3js.org/d3.v5.min.js"></script>
+<script src="../static/charts.js"></script>
+{% endblock %}

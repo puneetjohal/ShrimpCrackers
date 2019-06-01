@@ -280,3 +280,11 @@ joyceL -- 2019-05-30 22:39
 3. Fix white space in search field error
 4. Optimized info page
 ==============================================================
+
+joyceL -- 2019-06-01 18:18
+--------------------------------------------------------------
+0. Finished "my location" feature using ipstack and ip jsontest api
+1. Added getCounty() function in coord.py to find county name based on city+state name
+    (because ipstack api does not provide county name)
+2. Added functions in climate.py to search data by state (when given city/county DNE)
+==============================================================

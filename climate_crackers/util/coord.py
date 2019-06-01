@@ -32,3 +32,15 @@ def getOptions(city):
     return retlist
 
 # getOptions("Brooklyn")
+
+def getCounty(city, state):
+    city = urllib.parse.quote(city)
+    response = urllib.request.urlopen(geocode+city)
+    options = json.loads(response.read())
+    results = options['results'][0]['locations']
+    for each in results:
+        if each['adminArea3'] == state:
+            return each['adminArea4']
+    return ""
+
+# print(getCounty("Staten Island", "NY"))

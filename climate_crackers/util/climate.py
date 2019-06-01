@@ -2,6 +2,8 @@ import json
 import urllib.request
 import time
 
+from util.us_state_abbr import codes
+
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
 #===============================================================================
@@ -60,13 +62,38 @@ def getcountyid(county, state):
 
 # print(getcountyid("Kings County", "NY"))
 
+def getstatelist():
+    for x in range(0,2):#total: 1988 cities
+        url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/locations?locationcategoryid=ST&limit=51"
+        req = urllib.request.Request(url, data=None, headers=token)
+        response = urllib.request.urlopen(req)
+        data = json.loads(response.read())
+    # print(data)
+    data = data['results']
+    del data[8] # remove District of Columbia
+    ret_dict = {}
+    for each in data:
+        ret_dict[codes[each['name']]] = each['id']
+    return ret_dict
+
+state_list = getstatelist()
+# print(state_list)
+
+def getstateid(state):
+    print("getting state id for", state)
+    for key in state_list.keys():
+        if state == key:
+            return state_list[key]
+    return "NOT FOUND"
+
 def getSearchInfo(city, county, state):
-    if city == "":
-        ID = "NOT FOUND"
-    else:
+    ID = "NOT FOUND"
+    if city != "":
         ID = getcityid(city, state)
     if ID == "NOT FOUND" and county != "":
         ID = getcountyid(county, state)
+    if ID == "NOT FOUND":
+        ID = getstateid(state)
     stations = ""
     url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" + ID
     req = urllib.request.Request(url, data=None, headers=token)
@@ -87,10 +114,11 @@ def getSearchInfo(city, county, state):
     ret_data = []
     for entry in data:
         if 'TAVG' in entry:
-            ret_data.append(entry)
+            ret_data.append({'DATE': entry['DATE'], 'TAVG': entry['TAVG']})
     return ret_data
 
 # print(getSearchInfo("New York City", "Kings County", "NY"))
+# print(getSearchInfo("", "", "NY"))
 #===============================================================================
 # COUNTY WEATHER INFORMATION FOR LANDING PAGE
 #===============================================================================
