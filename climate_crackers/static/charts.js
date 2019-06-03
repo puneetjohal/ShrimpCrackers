@@ -14,23 +14,14 @@ data.sort(function(a, b){
     return a.DATE - b.DATE;
 });
 
-var fake_data = [
-  {
-    name: "sophia",
-    value: 123
-  },
-  {
-    name: "tania",
-    value: 456
-  },
-  {
-    name: "puneet",
-    value: 789
-  },
-  {
-    name: "joyce",
-    value: 345
-  }];
+p_data.forEach ( d => {
+    d['DATE'] = parseInt(d['DATE']);
+    d['PRCP'] = parseFloat(d['PRCP']);
+});
+
+p_data.sort(function(a,b){
+    return a.DATE - b.DATE;
+})
 
 var p_graph = d3.select("#p_graph")
                 .attr("width",GRAPH_W)
@@ -41,17 +32,21 @@ p_graph.append("rect")
   .attr("height", "100%")
   .attr("fill", "white");
 
-x = d3.scaleBand()
-  .domain(fake_data.map(d => d.name))
+x = d3.scaleTime()
+  .domain([new Date(d3.min(p_data, d => d.DATE), 0, 1), new Date(d3.max(p_data, d => d.DATE), 0, 1)])
+  .range([margin.left, GRAPH_W - margin.right]);
+
+bar_x = d3.scaleBand()
+  .domain(p_data.map(d => d.DATE))
   .range([margin.left, GRAPH_W - margin.right])
   .padding(0.1);
 
 y = d3.scaleLinear()
-  .domain([0, d3.max(fake_data, d => d.value)]).nice()
+  .domain([0, d3.max(p_data, d => d.PRCP)]).nice()
   .range([GRAPH_H - margin.bottom, margin.top]);
 
 var color = d3.scaleOrdinal()
-  .domain(fake_data, d => d.name)
+  .domain(p_data, d => d.DATE)
   .range(["#d6d6ea", "#9999cc"]);
 
 xAxis = g => g
@@ -71,13 +66,13 @@ p_graph.append("text")
   .attr("text-anchor", "middle")
   .style("font-size", "16px")
   .style("text-decoration", "underline")
-  .text("Precipitation vs Year(fake)");
+  .text("Precipitation vs Year");
 
 var bar = p_graph.selectAll("g")
-  .data(fake_data)
+  .data(p_data)
   .enter()
   .append("g")
-  .attr("fill", d => color(d.name));
+  .attr("fill", d => color(d.DATE));
   // .attr("transform", function (d, i) {
   //   return "translate(" + i * BAR_W + ", 0)"; });
 
@@ -88,11 +83,11 @@ p_graph.append("g")
   .call(yAxis);
 
 bar.append("rect").attr("height", function (d) {
-    return y(0) - y(d.value);
+    return y(0) - y(d.PRCP);
   })
-  .attr("width", x.bandwidth())
-  .attr("x", d => x(d.name))
-  .attr("y", d => y(d.value));
+  .attr("width", bar_x.bandwidth())
+  .attr("x", d => bar_x(d.DATE))
+  .attr("y", d => y(d.PRCP));
 // bar.append("text").attr("x", function (d){
 //                                     return x(d.value) - 3;})
 //                         .attr("y", barHeight / 2)

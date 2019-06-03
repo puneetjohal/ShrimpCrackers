@@ -3,6 +3,7 @@ import urllib.request
 import time
 
 from util.us_state_abbr import codes
+# from us_state_abbr import codes
 
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
@@ -86,14 +87,8 @@ def getstateid(state):
             return state_list[key]
     return "NOT FOUND"
 
-def getSearchInfo(city, county, state):
-    ID = "NOT FOUND"
-    if city != "":
-        ID = getcityid(city, state)
-    if ID == "NOT FOUND" and county != "":
-        ID = getcountyid(county, state)
-    if ID == "NOT FOUND":
-        ID = getstateid(state)
+def getTemp(id, city, county, state):
+    ID = id
     stations = ""
     url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=TAVG&locationid=" + ID
     req = urllib.request.Request(url, data=None, headers=token)
@@ -117,8 +112,43 @@ def getSearchInfo(city, county, state):
             ret_data.append({'DATE': entry['DATE'], 'TAVG': entry['TAVG']})
     return ret_data
 
-# print(getSearchInfo("New York City", "Kings County", "NY"))
-# print(getSearchInfo("", "", "NY"))
+def getPrecip(id, city, county, state):
+    ID = id
+    stations = ""
+    url = "https://www.ncdc.noaa.gov/cdo-web/api/v2/stations?datatypeid=PRCP&locationid=" + ID
+    req = urllib.request.Request(url, data=None, headers=token)
+    response = urllib.request.urlopen(req)
+    data = json.loads(response.read())
+    for i in range(0, len(data['results'])):
+        s = data['results'][i]['id']
+        s = s.split(':', 1)[-1]
+        stations += s + ","
+    stations = stations[:-1]
+    # print(stations)
+    url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=PRCP&stations=" + stations + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
+    req = urllib.request.Request(url, data=None, headers=token)
+    response = urllib.request.urlopen(req)
+    data = json.loads(response.read())
+    # print(data)
+    ret_data = []
+    for entry in data:
+        if 'PRCP' in entry:
+            ret_data.append({'DATE': entry['DATE'], 'PRCP': entry['PRCP']})
+    return ret_data
+
+def getSearchInfo(city, county, state):
+    ID = "NOT FOUND"
+    if city != "":
+        ID = getcityid(city, state)
+    if ID == "NOT FOUND" and county != "":
+        ID = getcountyid(county, state)
+    if ID == "NOT FOUND":
+        ID = getstateid(state)
+    temp_data = getTemp(ID, city, county, state)
+    precip_data = getPrecip(ID, city, county, state)
+    return temp_data, precip_data
+
+# print(getSearchInfo("", "Kings County", "NY"))
 #===============================================================================
 # COUNTY WEATHER INFORMATION FOR LANDING PAGE
 #===============================================================================

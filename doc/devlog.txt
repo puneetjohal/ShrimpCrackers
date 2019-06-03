@@ -288,3 +288,10 @@ joyceL -- 2019-06-01 18:18
     (because ipstack api does not provide county name)
 2. Added functions in climate.py to search data by state (when given city/county DNE)
 ==============================================================
+
+joyceL -- 2019-06-02 22:06
+--------------------------------------------------------------
+0. Deploy current state of project on droplet
+1. Added function in climate.py to retrieve precipitation data
+2. Display bar graph on info page based on precipitation data
+==============================================================

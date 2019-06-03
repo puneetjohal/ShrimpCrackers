@@ -6,7 +6,7 @@ var API_KEY = "pk.738f40deb14792dababc73f9349b0bfd";
 
 var URL = "https://maps.locationiq.com/v2/staticmap?key="+API_KEY+"&zoom=12&markers=icon:large-blue-cutout|"+latitude+","+longitude
 
-console.log(URL);
+// console.log(URL);
 var map = document.getElementById("map");
 var img = document.createElement("img");
 img.setAttribute("src",URL);

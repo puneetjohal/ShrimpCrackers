@@ -132,11 +132,13 @@ def load_info():
     state = request.args["state"]
     lat = request.args["lat"]
     longi = request.args["long"]
-    avg_temp = climate.getSearchInfo(city, county, state)
+    data = climate.getSearchInfo(city, county, state)
+    avg_temp = data[0]
+    precip = data[1]
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], city, county, state, lat, longi)
-    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist)
+    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist, prcp_data=precip)
 
 # ================My Location================
 @app.route("/current")
@@ -148,13 +150,15 @@ def load_current():
 	state = location["region_code"]
 	city = location['city']
 	county = coord.getCounty(city, state)
-	tavg_data = climate.getSearchInfo(city, county, state)
+	data = climate.getSearchInfo(city, county, state)
+	tavg_data = data[0]
+	prcp_data = data[1]
 	lat = location['latitude']
 	long = location['longitude']
 	addr = city + ", " + state + " " + zip
 	if county != "":
 		addr += " [" + county + "]"
-	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city)
+	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city, prcp_data=prcp_data)
 
 if __name__ == "__main__":
         app.debug = True
