@@ -60,16 +60,17 @@ def getStations(lbound, ubound):
 #getStations(0, 1000) ALREADY RAN THIS
 #getStations(1000, 2000) ALREADY RAN THIS
 #getStations(2000, 3000) ALREADY RAN THIS
-#getStations(3000, 4000)
+#getStations(3000, 4000) ALREADY RAN THIS
 
 
 def getCntyInfo(batch):
     with open('stations.json') as json_file:
         stations = json.load(json_file)
     info = {}
+    with open('tavg.json') as f:
+        d = json.load(f)
     for x in range(0, len(stations[batch])):
         #get the info
-        print(stations[batch][x][1])
         url = "https://www.ncei.noaa.gov/access/services/data/v1?dataset=global-summary-of-the-year&dataTypes=TAVG&stations=" + stations[batch][x][1] + "&startDate=1900-01-01&endDate=2018-12-31&format=json&units=standard"
         req = urllib.request.Request(url, data=None, headers=token)
         response = urllib.request.urlopen(req)
@@ -80,11 +81,12 @@ def getCntyInfo(batch):
                 alist.append({data[j]['DATE']:data[j]['TAVG']})
             else:
                 alist.append({data[j]['DATE']: ""})
-        info[stations[batch][x][0]] = alist
+        print(stations[batch][x][0])
+        d.update({stations[batch][x][0]: alist})
     with open('tavg.json', 'w') as outfile:
-        json.update(info, outfile)
+        json.dump(d, outfile)
 
-getCntyInfo(0)
+#getCntyInfo(0)
 #getCntyInfo(1)
 #getCntyInfo(2)
 #getCntyInfo(3)

@@ -301,3 +301,9 @@ sophiaX -- 2019-06-03 19:41
 0. take out functions to get info from climate into new file landing
 1. got all the station data from API (getting weather info right now)
 ==============================================================
+
+sophiaX -- 2019-06-03 19:41
+--------------------------------------------------------------
+0. updated function to append data to json file
+1. got all the Avg Temperature (TAVG) data
+==============================================================
