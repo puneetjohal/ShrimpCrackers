@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, flash, session, url_for, redirect
 
-from util import db, coord, climate, ip
+from util import db, coord, climate, ip, weather
 
 app = Flask(__name__)
 
@@ -135,10 +135,11 @@ def load_info():
     data = climate.getSearchInfo(city, county, state)
     avg_temp = data[0]
     precip = data[1]
+    weather_data = weather.get_info(lat, longi)
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], city, county, state, lat, longi)
-    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist, prcp_data=precip)
+    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist, prcp_data=precip, weather_data=weather_data)
 
 # ================My Location================
 @app.route("/current")
