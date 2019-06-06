@@ -1,6 +1,6 @@
 // precipitation bar graph
-var GRAPH_W = 500;
-var GRAPH_H = 300;
+var GRAPH_W = 1045;
+var GRAPH_H = 627;
 margin = {top: 50, right: 10, bottom: 30, left: 40};
 
 // console.log(data);
