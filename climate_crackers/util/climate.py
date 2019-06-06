@@ -25,16 +25,21 @@ def getcitylist():
         offset += 1000
     return ret_dict
 
-city_list = getcitylist()
-# print(len(city_list))
+# city_list = getcitylist()
+# print((city_list))
+
+# with open("city.json", 'w') as outfile:
+#     json.dump(city_list, outfile)
 
 def getcityid(city, state):
     print("getting city id for", city)
-    for key in city_list.keys():
-        if city in key and state in key:
-            return city_list[key]
+    with open ("data/city.json", "r") as cities:
+        city_list = json.load(cities)
+        for key in city_list.keys():
+            if city in key and state in key:
+                return city_list[key]
     return "NOT FOUND"
-
+#
 # print(getcityid("Salt Lake City", "UT"))
 # print(getcityid("Brooklyn", "NY"))
 
@@ -51,14 +56,19 @@ def getcountylist():
         offset += 1000
     return ret_dict
 
-county_list = getcountylist()
+# county_list = getcountylist()
 # print(len(county_list))
+#
+# with open("county.json", 'w') as outfile:
+#     json.dump(county_list, outfile)
 
 def getcountyid(county, state):
     print("getting county id for", county)
-    for key in county_list.keys():
-        if county in key and state in key:
-            return county_list[key]
+    with open ("data/county.json", "r") as counties:
+        county_list = json.load(counties)
+        for key in county_list.keys():
+            if county in key and state in key:
+                return county_list[key]
     return "NOT FOUND"
 
 # print(getcountyid("Kings County", "NY"))
@@ -77,15 +87,22 @@ def getstatelist():
         ret_dict[codes[each['name']]] = each['id']
     return ret_dict
 
-state_list = getstatelist()
+# state_list = getstatelist()
 # print(state_list)
+
+# with open("state.json", 'w') as outfile:
+#     json.dump(state_list, outfile)
 
 def getstateid(state):
     print("getting state id for", state)
-    for key in state_list.keys():
-        if state == key:
-            return state_list[key]
+    with open ("data/state.json", "r") as states:
+        state_list = json.load(states)
+        for key in state_list.keys():
+            if state == key:
+                return state_list[key]
     return "NOT FOUND"
+
+print(getstateid("FL"))
 
 def getTemp(id, city, county, state):
     ID = id

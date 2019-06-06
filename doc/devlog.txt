@@ -348,3 +348,10 @@ taniaC-- 2019-06-06 17:45
 0. changed sizing of information charts
 1. updated devlog
 ==============================================================
+
+joyceL-- 2019-06-06 18:57
+--------------------------------------------------------------
+0. Change jumbotron color
+1. Add try excepts in __init__.py
+2. Store city/county/state ids as lists to make loading faster at startup
+==============================================================
