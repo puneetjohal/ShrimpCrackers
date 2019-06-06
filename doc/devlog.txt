@@ -307,3 +307,19 @@ sophiaX -- 2019-06-03 19:41
 0. updated function to append data to json file
 1. got all the Avg Temperature (TAVG) data
 ==============================================================
+
+sophiaX -- 2019-06-06 01:29
+--------------------------------------------------------------
+Team write_illegibly:
+0. Ran our launch instruction for both local host and apache
+1. They were not successful for local host or apache
+Local Host Errors:
+0. Can not run the __init__.py file
+1. Unable to activate the virual environment. Should change directions to:
+   . ~/pathtovenv/bin/activate
+Apache Errors:
+0. Unclear how to cd into the climate_crackers directory. Should change to:
+   cd ShrimpCrackers/climate_crackers
+1. Can't enable site because config file copied to wrong directory. Should change to:
+   sudo mv climate_crackers.conf /../../etc/apache2/sites-available/
+==============================================================
