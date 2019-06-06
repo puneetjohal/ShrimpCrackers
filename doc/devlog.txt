@@ -273,13 +273,6 @@ joyceL -- 2019-05-30 12:25
 0. Display line graph for average temperature of a given location on info page
 ==============================================================
 
-taniaC-- 2019-05-30 17:35
---------------------------------------------------------------
-0. added city and state data into watchlist database
-1. updated all pages watchlist related to match with the new database
-2. fix bugs related to county data
-==============================================================
-
 joyceL -- 2019-05-30 22:39
 --------------------------------------------------------------
 0. Fix watchlist error (keyError "county")
