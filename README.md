@@ -32,14 +32,14 @@ Climate Crackers is a data visualization website that allows users to explore tr
 ```
   $ sudo apt-get update
   $ sudo apt-get install python3.7
-  $ python3.7 --versionp
+  $ python3.7 --version
 ```
 6. Install virtualenv by running `$ sudo apt-get install python3-venv`
    * Make a venv by running `$ python3 -m venv path_to_venv`
    * Activate it by running `$ . /path_to_venv/bin/activate`
    * Deactivate it by running `$ deactivate`
 7. **With your virtual environment activated**, download all of the app's dependencies by running 
-```.p\
+```
  (venv)$ pip install -r climate_crackers/requirements.txt
 ```
 8. Add www-data write permissions by running `sudo chgrp -R www-data climate_crackers` and `sudo chmod -R g+w climate_crackers`
