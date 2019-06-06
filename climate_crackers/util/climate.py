@@ -1,9 +1,14 @@
+import os
+
 import json
 import urllib.request
 import time
 
 from util.us_state_abbr import codes
 # from us_state_abbr import codes
+
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
 
 token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
 
@@ -33,7 +38,7 @@ def getcitylist():
 
 def getcityid(city, state):
     print("getting city id for", city)
-    with open ("data/city.json", "r") as cities:
+    with open (DIR + "data/city.json", "r") as cities:
         city_list = json.load(cities)
         for key in city_list.keys():
             if city in key and state in key:
@@ -64,7 +69,7 @@ def getcountylist():
 
 def getcountyid(county, state):
     print("getting county id for", county)
-    with open ("data/county.json", "r") as counties:
+    with open (DIR + "data/county.json", "r") as counties:
         county_list = json.load(counties)
         for key in county_list.keys():
             if county in key and state in key:
@@ -95,7 +100,7 @@ def getstatelist():
 
 def getstateid(state):
     print("getting state id for", state)
-    with open ("data/state.json", "r") as states:
+    with open (DIR + "data/state.json", "r") as states:
         state_list = json.load(states)
         for key in state_list.keys():
             if state == key:
