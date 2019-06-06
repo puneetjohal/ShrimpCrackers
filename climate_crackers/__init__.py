@@ -35,8 +35,6 @@ def auth():
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
-    #redirect = request.form["type"]
-    #print(redirect)
     return render_template("login.html", title = "Login", heading = "Login")
 
 #Sends the user to the register.html to register a new account
@@ -69,7 +67,6 @@ def add_user():
 def logout():
 	if session.get("logged_in"):
 		session.pop("logged_in")
-		# print(session)
 	return redirect(url_for("home"))
 
 # ================Watchlist================
@@ -156,10 +153,11 @@ def load_current():
 	prcp_data = data[1]
 	lat = location['latitude']
 	long = location['longitude']
+	weather_data = weather.get_info(lat, long)
 	addr = city + ", " + state + " " + zip
 	if county != "":
 		addr += " [" + county + "]"
-	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city, prcp_data=prcp_data)
+	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city, prcp_data=prcp_data, weather_data=weather_data)
 
 if __name__ == "__main__":
         app.debug = True
