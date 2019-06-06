@@ -12,10 +12,10 @@ Climate Crackers is a data visualization website that allows users to explore tr
 2. Copy the ssh/https link and run `$ git clone <link>`
 3. Make sure the latest version of Python (currently Python 3.7.1) is installed. If not, download it [here](https://www.python.org/downloads/).
 4. Install virtualenv by running `$ pip install virtualenv`
-   * Make a venv by running `$ python3 -m venv ENV_DIR`
-   * Activate it by running `$ . /ENV_DIR/bin/activate`
+   * Make a venv by running `$ python3 -m venv path_to_venv`
+   * Activate it by running `$ . /path_to_venv/bin/activate`
    * Deactivate it by running `$ deactivate`
-5. Move to the climate_crackers directory: `$ cd climate_crackers/`
+5. Move into the climate_crackers directory: `$ cd climate_crackers/`
 6. **With your virtual environment activated**, download all of the app's dependencies by running 
 ```
  (venv)$ pip install -r requirements.txt
@@ -26,25 +26,26 @@ Climate Crackers is a data visualization website that allows users to explore tr
 #### Install and run on Apache2
 1. SSH into your droplet by running `$ ssh <user>@<droplet_ip_address>`. Your user account should be part of the sudo group on the droplet.
 2. Move to the www directory using `$ cd ../../var/www/`
-3. Clone the repo by running `$ sudo git clone https://github.com/puneetjohal/ShrimpCrackers.git`
-4. Move into the repo directory using `$ cd climate_crackers/`. Use `$ sudo vim climate_crackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `$ sudo mv climate_crackers.conf /../../etc/apache2/sites-enabled/`
-5. Enable the site by running `$ sudo a2ensite climate_crackers`
-6. Make sure the latest version of Python (currently Python 3.7.1) is installed on your droplet by running `$ python3.7 --version`. The terminal should output `Python 3.7.1`. If not, run
+3. Clone the repo by running `$ sudo git clone https://github.com/puneetjohal/ShrimpCrackers.git climate_crackers`
+4. Move into the repo directory using `$ cd climate_crackers/`. Use `$ sudo vim climate_crackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `$ sudo mv climate_crackers.conf ../../../etc/apache2/sites-available/`
+5. Make sure the latest version of Python (currently Python 3.7.1) is installed on your droplet by running `$ python3.7 --version`. The terminal should output `Python 3.7.1`. If not, run
 ```
   $ sudo apt-get update
   $ sudo apt-get install python3.7
-  $ python3.7 --version
+  $ python3.7 --versionp
 ```
-7. Install virtualenv by running `$ pip install virtualenv`
-   * Make a venv by running `$ python3 -m venv ENV_DIR`
-   * Activate it by running `$ . /ENV_DIR/bin/activate`
+6. Install virtualenv by running `$ sudo apt-get install python3-venv`
+   * Make a venv by running `$ python3 -m venv path_to_venv`
+   * Activate it by running `$ . /path_to_venv/bin/activate`
    * Deactivate it by running `$ deactivate`
-8. **With your virtual environment activated**, download all of the app's dependencies by running 
+7. **With your virtual environment activated**, download all of the app's dependencies by running 
+```.p\
+ (venv)$ pip install -r climate_crackers/requirements.txt
 ```
- (venv)$ pip install -r requirements.txt
-```
-9. Run `$ sudo service apache2 restart` to restart the Apache server.
-10. The app is now being hosted on port 8000 of your droplet. Go to http://<droplet_ip_address>:8000/ in your browser to view the site.
+8. Add www-data write permissions by running `sudo chgrp -R www-data climate_crackers` and `sudo chmod -R g+w climate_crackers`
+9. Enable the site by running `$ sudo a2ensite climate_crackers`
+10. Run `$ sudo service apache2 restart` to restart the Apache server.
+11. The app is now being hosted on port 8000 of your droplet. Go to http://<droplet_ip_address>:8000/ in your browser to view the site.
 
 #### API information
 ##### LocationIQ
