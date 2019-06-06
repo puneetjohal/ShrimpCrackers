@@ -83,23 +83,26 @@ def load_wl():
 
 @app.route("/change_wl", methods = ["GET", "POST"])
 def change_wl():
-    page = request.args["page"]
-    city = request.args["city"]
-    state = request.args["state"]
-    county = request.args["county"]
-    lat = request.args["lat"]
-    longi = request.args["long"]
-    if request.args["update"] == "Add to watchlist":
-        db.add_watchlist(session["logged_in"], city, county, state, lat, longi)
-    elif request.args["update"] == "Remove from watchlist":
-        db.remove_watchlist(session["logged_in"], city, county, state, lat, longi)
-    if page == "watchlist":
-            return redirect(url_for("load_wl"))
-    elif page == "info":
-            return redirect(url_for("load_info", city = city, county = county, state = state, lat = lat, long = longi))
-    else:
-            location = request.args["search_location"]
-            return redirect(url_for("load_results", search_location=location))
+	try:
+	    city = request.args["city"]
+	    state = request.args["state"]
+	    county = request.args["county"]
+	    lat = request.args["lat"]
+	    longi = request.args["long"]
+	    if request.args["update"] == "Add to watchlist":
+	        db.add_watchlist(session["logged_in"], city, county, state, lat, longi)
+	    elif request.args["update"] == "Remove from watchlist":
+	        db.remove_watchlist(session["logged_in"], city, county, state, lat, longi)
+	except:
+		flash("failed to add location to watchlist")
+	page = request.args["page"]
+	if page == "watchlist":
+		return redirect(url_for("load_wl"))
+	elif page == "info":
+		return redirect(url_for("load_info", city = city, county = county, state = state, lat = lat, long = longi))
+	else:
+		location = request.args["search_location"]
+		return redirect(url_for("load_results", search_location=location))
 
 # ================search================
 @app.route("/search")
@@ -108,9 +111,11 @@ def load_results():
     location = request.args["search_location"].strip()
     if (location == ""):
         flash ("Please enter a location")
+        return render_template("search.html", title = "Try Again", heading = "Please Try Again", logged_in=status)
     result = coord.getOptions(location)
     if (len(result) < 1):
         flash ("No location found. Please try again.")
+        return render_template("search.html", title = "Try Again", heading = "Please Try Again", logged_in=status)
     on_watchlist = {}
     if "logged_in" in session:
         for each in result:
@@ -129,10 +134,14 @@ def load_info():
     state = request.args["state"]
     lat = request.args["lat"]
     longi = request.args["long"]
-    data = climate.getSearchInfo(city, county, state)
+    try:
+        data = climate.getSearchInfo(city, county, state)
+        weather_data = weather.get_info(lat, longi)
+    except:
+        flash("Sorry, an error has occurred while retriving information.")
+        return redirect(url_for("home"))
     avg_temp = data[0]
     precip = data[1]
-    weather_data = weather.get_info(lat, longi)
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], city, county, state, lat, longi)
@@ -144,16 +153,24 @@ def load_current():
 	location = ip.get_coord()
 	# print(location)
 	country = location['country_code']
+	print(country)
+	if country != "US":
+		flash("'My location' feature is currently not supported for locations outside of the U.S.")
+		return redirect(url_for("home"))
 	zip = location['zip']
 	state = location["region_code"]
 	city = location['city']
-	county = coord.getCounty(city, state)
-	data = climate.getSearchInfo(city, county, state)
-	tavg_data = data[0]
-	prcp_data = data[1]
 	lat = location['latitude']
 	long = location['longitude']
-	weather_data = weather.get_info(lat, long)
+	try:
+		county = coord.getCounty(city, state)
+		data = climate.getSearchInfo(city, county, state)
+		weather_data = weather.get_info(lat, long)
+	except:
+		flash("Sorry, an error has occurred while retriving information.")
+		return redirect(url_for("home"))
+	tavg_data = data[0]
+	prcp_data = data[1]
 	addr = city + ", " + state + " " + zip
 	if county != "":
 		addr += " [" + county + "]"
