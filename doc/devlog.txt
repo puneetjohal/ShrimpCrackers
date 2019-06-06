@@ -323,3 +323,8 @@ Apache Errors:
 1. Can't enable site because config file copied to wrong directory. Should change to:
    sudo mv climate_crackers.conf /../../etc/apache2/sites-available/
 ==============================================================
+
+joyceL -- 2019-06-06 14:19
+--------------------------------------------------------------
+0. Modify README according to errors found in team review
+==============================================================
