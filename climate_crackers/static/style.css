@@ -139,3 +139,16 @@
 #graph_container {
     padding-top: 30px;
 }
+
+div.tooltip {
+    position: absolute;
+    text-align: center;
+    width: 60px;
+    height: 28px;
+    padding: 2px;
+    font: 12px sans-serif;
+    background: #e5e5e5;
+    border: 0px;
+    border-radius: 2px;
+    pointer-events: none;
+}

@@ -23,6 +23,10 @@ p_data.sort(function(a,b){
     return a.DATE - b.DATE;
 })
 
+var div = d3.select("body").append("div")
+  .attr("class", "tooltip")
+  .style("opacity", 0);
+
 var p_graph = d3.select("#p_graph")
                 .attr("width",GRAPH_W)
                 .attr("height", GRAPH_H)
@@ -45,9 +49,9 @@ y = d3.scaleLinear()
   .domain([0, d3.max(p_data, d => d.PRCP)]).nice()
   .range([GRAPH_H - margin.bottom, margin.top]);
 
-var color = d3.scaleOrdinal()
-  .domain(p_data, d => d.DATE)
-  .range(["#d6d6ea", "#9999cc"]);
+var color = d3.scaleLinear()
+  .domain([d3.min(p_data, d => d.PRCP), d3.max(p_data, d => d.PRCP)])
+  .range(["#e6e6f2", "#9999cc"]);
 
 xAxis = g => g
   .attr("transform", `translate(0,${GRAPH_H - margin.bottom})`)
@@ -65,16 +69,29 @@ p_graph.append("text")
   .attr("y", 0 + (margin.top / 2))
   .attr("text-anchor", "middle")
   .style("font-size", "16px")
-  .style("text-decoration", "underline")
+  // .style("text-decoration", "underline")
   .text("Precipitation vs Year");
 
 var bar = p_graph.selectAll("g")
   .data(p_data)
   .enter()
   .append("g")
-  .attr("fill", d => color(d.DATE));
-  // .attr("transform", function (d, i) {
-  //   return "translate(" + i * BAR_W + ", 0)"; });
+  .attr("fill", d => color(d.PRCP))
+  .on("mouseover", function(d) {
+    // div.transition()
+    // .duration(200)
+    div.style("opacity", .9);
+    div.html(d.DATE + "<br/>"  + d.PRCP + " in.")
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 28) + "px");
+    d3.select(this).attr("fill", "#ffffad")
+  })
+  .on("mouseout", function(d) {
+    // div.transition()
+    // .duration(500)
+    d3.select(this).attr("fill", d => color(d.PRCP))
+    div.style("opacity", 0);
+});
 
 p_graph.append("g")
   .call(xAxis);
@@ -82,17 +99,14 @@ p_graph.append("g")
 p_graph.append("g")
   .call(yAxis);
 
+
+
 bar.append("rect").attr("height", function (d) {
     return y(0) - y(d.PRCP);
   })
   .attr("width", bar_x.bandwidth())
   .attr("x", d => bar_x(d.DATE))
   .attr("y", d => y(d.PRCP));
-// bar.append("text").attr("x", function (d){
-//                                     return x(d.value) - 3;})
-//                         .attr("y", barHeight / 2)
-//                         .attr("dy", ".35em")
-//                         .text(function(d) { return d.value; });
 
 // =======================================================
 
@@ -110,13 +124,15 @@ x = d3.scaleTime()
   .range([margin.left, GRAPH_W - margin.right]);
   // .padding(0.1);
 
+dot_x = d3.scaleLinear()
+  .domain([d3.min(data, d => d.DATE), d3.max(data, d => d.DATE)])
+  .range([margin.left, GRAPH_W - margin.right]);
+// .padding(0.1);
+
 y = d3.scaleLinear()
   .domain([d3.min(data, d => d.TAVG) - 5, d3.max(data, d => d.TAVG)]).nice()
   .range([GRAPH_H - margin.bottom, margin.top]);
 
-color = d3.scaleOrdinal()
-  .domain(data, d => d.DATE.substring(2))
-  .range(["#d6d6ea", "#9999cc"]);
 
 line = d3.line()
   // .defined(d => !isNaN(d.TAVG))
@@ -130,33 +146,43 @@ t_graph.append("text")
   .attr("y", 0 + (margin.top / 2))
   .attr("text-anchor", "middle")
   .style("font-size", "16px")
-  .style("text-decoration", "underline")
+  // .style("text-decoration", "underline")
   .text("Average Temperature vs Year");
 
 t_graph.append("path")
-  .datum(data)
+  // .datum(data)
   .attr("fill", "none")
-  .attr("stroke", "steelblue")
+  .attr("stroke", "#b7b7e5")
   .attr("stroke-width", 1.5)
   .attr("stroke-linejoin", "round")
   .attr("stroke-linecap", "round")
-  .attr("d", line);
+  .attr("d", line(data));
 
-// var t_bar = t_graph.selectAll("g")
-//   .data(data)
-//   .enter()
-//   .append("g")
-//   .attr("fill", d => color(d.DATE.substring(2)));
+t_graph.selectAll("dot")
+ .data(data)
+ .enter().append("circle")
+     .attr("r", 3)
+     .attr("cx", function(d) { return dot_x(d.DATE); })
+     .attr("cy", function(d) { return y(d.TAVG); })
+     .attr("fill", "#7a7a99")
+     .on("mouseover", function(d) {
+       // div.transition()
+       // .duration(200)
+       div.style("opacity", .9);
+       div.html(d.DATE + "<br/>"  + d.TAVG + " F")
+         .style("left", (d3.event.pageX) + "px")
+         .style("top", (d3.event.pageY - 28) + "px");
+       d3.select(this).attr("fill", "#ff3232")
+     })
+     .on("mouseout", function(d) {
+       // div.transition()
+       // .duration(500)
+       d3.select(this).attr("fill", "#7a7a99")
+       div.style("opacity", 0);
+   });
 
 t_graph.append("g")
   .call(xAxis);
 
 t_graph.append("g")
   .call(yAxis);
-
-// t_bar.append("rect").attr("height", function (d) {
-//     return y(0) - y(parseFloat(d.TAVG));
-//   })
-//   .attr("width", x.bandwidth())
-//   .attr("x", d => x(d.DATE.substring(2)))
-//   .attr("y", d => y(parseFloat(d.TAVG)));

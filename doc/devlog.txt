@@ -332,4 +332,5 @@ joyceL -- 2019-06-06 14:19
 joyceL -- 2019-06-06 16:06
 --------------------------------------------------------------
 0. Finish current weather feature on info pg
+1. Add tooltip on hover to both graphs on info pg
 ==============================================================
