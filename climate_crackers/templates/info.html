@@ -1,7 +1,7 @@
 {% extends "parent.html" %}
 
 {% block content %}
-<div class="row">
+<div class="row text-center">
   <div class="col">
     <div id="map"></div>
   </div>
@@ -25,9 +25,13 @@
     {% endif %}
   </div>
 </div>
-<div class="row" id="graph_container">
-    <svg class="mx-3" id="t_graph"></svg>
-    <svg class="mx-3" id="p_graph"></svg>
+
+<div id="graph_container">
+    <svg class="text-center" id="t_graph"></svg>
+</div>
+
+<div id="graph_container">
+    <svg class="text-center" id="p_graph"></svg>
 </div>
 
 <script> var latitude = {{lat}};

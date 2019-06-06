@@ -226,7 +226,8 @@ taniaC-- 2019-05-25 00:20
 taniaC-- 2019-05-26 16:33
 --------------------------------------------------------------
 0. created section in info page for data content
-3. update devlog
+1. added links to unavailable pages (ex: trying to go to watchlist without being logged in)
+2. update devlog
 ==============================================================
 
 sophiaX -- 2019-05-27 21:18
@@ -272,6 +273,13 @@ joyceL -- 2019-05-30 12:25
 0. Display line graph for average temperature of a given location on info page
 ==============================================================
 
+taniaC-- 2019-05-30 17:35
+--------------------------------------------------------------
+0. added city and state data into watchlist database
+1. updated all pages watchlist related to match with the new database
+2. fix bugs related to county data
+==============================================================
+
 joyceL -- 2019-05-30 22:39
 --------------------------------------------------------------
 0. Fix watchlist error (keyError "county")
@@ -279,6 +287,13 @@ joyceL -- 2019-05-30 22:39
 2. Adjust zoom param in map.js to show better view of location
 3. Fix white space in search field error
 4. Optimized info page
+==============================================================
+
+taniaC-- 2019-05-31 12:51
+--------------------------------------------------------------
+0. changed styling of info pages to make the information look more organized
+1. decreased the size of the navbar to give more space for the important aspect of the website (the data)
+2. searched for an api containing current weather data
 ==============================================================
 
 joyceL -- 2019-06-01 18:18
