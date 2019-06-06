@@ -339,6 +339,17 @@ Apache Errors:
    sudo mv climate_crackers.conf /../../etc/apache2/sites-available/
 ==============================================================
 
+joyceL -- 2019-06-06 14:19
+--------------------------------------------------------------
+0. Modify README according to errors found in team review
+==============================================================
+
+joyceL -- 2019-06-06 16:06
+--------------------------------------------------------------
+0. Finish current weather feature on info pg
+1. Add tooltip on hover to both graphs on info pg
+==============================================================
+
 taniaC-- 2019-06-06 17:45
 --------------------------------------------------------------
 0. changed sizing of information charts

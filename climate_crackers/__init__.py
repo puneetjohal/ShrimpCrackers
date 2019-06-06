@@ -2,7 +2,7 @@ import os
 
 from flask import Flask, render_template, request, flash, session, url_for, redirect
 
-from util import db, coord, climate, ip
+from util import db, coord, climate, ip, weather
 
 app = Flask(__name__)
 
@@ -35,8 +35,6 @@ def auth():
 
 @app.route("/login", methods = ["GET", "POST"])
 def login():
-    #redirect = request.form["type"]
-    #print(redirect)
     return render_template("login.html", title = "Login", heading = "Login")
 
 #Sends the user to the register.html to register a new account
@@ -69,7 +67,6 @@ def add_user():
 def logout():
 	if session.get("logged_in"):
 		session.pop("logged_in")
-		# print(session)
 	return redirect(url_for("home"))
 
 # ================Watchlist================
@@ -135,10 +132,11 @@ def load_info():
     data = climate.getSearchInfo(city, county, state)
     avg_temp = data[0]
     precip = data[1]
+    weather_data = weather.get_info(lat, longi)
     on_watchlist = False
     if "logged_in" in session:
         on_watchlist = db.check_watchlist(session["logged_in"], city, county, state, lat, longi)
-    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist, prcp_data=precip)
+    return render_template("info.html", title = city + ", " + state, heading = city + ", " + state, logged_in = status, lat=lat, long=longi, city=city, state = state, county=county, tavg_data=avg_temp, on_watchlist=on_watchlist, prcp_data=precip, weather_data=weather_data)
 
 # ================My Location================
 @app.route("/current")
@@ -155,10 +153,11 @@ def load_current():
 	prcp_data = data[1]
 	lat = location['latitude']
 	long = location['longitude']
+	weather_data = weather.get_info(lat, long)
 	addr = city + ", " + state + " " + zip
 	if county != "":
 		addr += " [" + county + "]"
-	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city, prcp_data=prcp_data)
+	return render_template("my_location.html", heading = "Current Location", address=addr, tavg_data=tavg_data, lat=lat, long=long, city=city, prcp_data=prcp_data, weather_data=weather_data)
 
 if __name__ == "__main__":
         app.debug = True
