@@ -6,33 +6,47 @@ DIR = os.path.dirname(__file__) or '.'
 DIR += '/../'
 
 editted = {}
+new_data = {}
 
-with open(DIR + "data/tavg.json", "r") as input:
+with open(DIR + "data/tavgData.json", "r") as input:
     data = json.load(input)
+    for year in range(1900, 2011):
+        editted[year] = {}
+    # for county in data.keys():
+    #     new_data[county] = {}
+    #     for i in range(len(data[county])):
+    #         key = list(data[county][i].keys())[0]
+    #         new_data[county][key] = data[county][i][key]
     for county in data.keys():
-        index = county.index(" County")
-        name = county[:index]
-        counter = 1900
-        temps = []
-        for obj in data[county]: # [ {obj}, {"year":"temp"}, {} ]
-            year = list(obj.keys())[0]
-            if int(year) != counter:
-                while counter != int(year):
-                    temps.append(0)
-                    counter = counter + 1
-            if obj[year] == "":
-                val = 0
-            else:
-                val = int(obj[year])
-            temps.append(val)
-            counter = counter + 1
-        if counter != 2018:
-            while counter <= 2018:
-                temps.append(0)
-                counter = counter + 1
-        editted[name] = temps
+        print (county)
+        no_state = county.split(",")[0]
+        year = 1900
+        for key in sorted(data[county].keys()):
+            print(key)
+            if int(key) < 2011:
+                while int(key) > year:
+                    editted[year][no_state] = 0
+                    year += 1
+                editted[year][no_state] = data[county][key]
+                year += 1
+        for i in range(year, 2011):
+            editted[year][no_state] = 0
 
-with open(DIR + "data/landingData.json", w) as output:
+    # for county in data.keys():
+    #     print(county)
+    #     for year in range(1900, 2011):
+    #         try:
+    #             editted[year].append({'county':county, 'tavg': data[county][str(year)]})
+    #         except:
+    #             editted[year].append({'county':county, 'tavg': "0"})
+
+#
+with open(DIR + "data/newLandingData.json", 'w') as output:
     #for chunk in json.JSONEncoder().iterencode(editted):
     #    output.write(chunk)
     json.dump(editted, output)
+# #
+# with open(DIR + "data/tavgData.json", 'w') as output:
+#     #for chunk in json.JSONEncoder().iterencode(editted):
+#     #    output.write(chunk)
+#     json.dump(new_data, output)

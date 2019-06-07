@@ -1,4 +1,5 @@
 var svg = d3.select("#landing_map");
+var placeholder = d3.select("#loading")
 
 var path = d3.geoPath();
 
@@ -41,7 +42,7 @@ d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, u
 });
 
 //Loading average temperature data
-d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/climate_crackers/data/landingData.json", function(error, data) {
+d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/climate_crackers/data/newLandingData.json", function(error, data) {
   if (error) throw error;
 
   //Color interpolation
@@ -74,25 +75,30 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
   function getTemp(name, year) {
     var temp;
     // console.log(data[year])
-    for (var i=0; i < data[year].length; i++) {
-      // console.log(data[year][i]);
-      curCounty = data[year][i]["county"];
-      index = curCounty.indexOf(" County");
-      adjName = curCounty.slice(0,index);
-      if (adjName === name) {
-        temp = data[year][i]["TAVG"];
-        break;
-      }
-    }
+    // for (var i=0; i < data[year].length; i++) {
+    //   // console.log(data[year][i]);
+    //   curCounty = data[year][i]["county"];
+    //   index = curCounty.indexOf(" County");
+    //   adjName = curCounty.slice(0,index);
+    //   if (adjName === name) {
+    //     temp = data[year][i]["TAVG"];
+    //     break;
+    //   }
+    // }
+    name = name + " County";
+
+    temp = data[year][name];
 
     if (temp == undefined || temp.toString() === "" || temp.toString() === "0") {
       return 0;
     }
+
     else {
-    // console.log(temp);
-      return parseFloat(temp);
+        // console.log(temp);
+        return parseFloat(temp);
     }
   }
 
-  // update(1950);
+  update(2010);
+  placeholder.remove();
 }); //Close temps JSON
