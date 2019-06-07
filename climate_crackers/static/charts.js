@@ -1,6 +1,6 @@
 // precipitation bar graph
 var GRAPH_W = 1045;
-var GRAPH_H = 627;
+var GRAPH_H = 620;
 margin = {top: 50, right: 10, bottom: 30, left: 40};
 
 // console.log(data);
@@ -34,7 +34,8 @@ var p_graph = d3.select("#p_graph")
 p_graph.append("rect")
   .attr("width", "100%")
   .attr("height", "100%")
-  .attr("fill", "white");
+  .attr("fill", "white")
+  .style("padding", "20px");
 
 x = d3.scaleTime()
   .domain([new Date(d3.min(p_data, d => d.DATE), 0, 1), new Date(d3.max(p_data, d => d.DATE), 0, 1)])
@@ -68,7 +69,7 @@ p_graph.append("text")
   .attr("x", (GRAPH_W / 2))
   .attr("y", 0 + (margin.top / 2))
   .attr("text-anchor", "middle")
-  .style("font-size", "16px")
+  .style("font-size", "20px")
   // .style("text-decoration", "underline")
   .text("Precipitation vs Year");
 
@@ -145,7 +146,7 @@ t_graph.append("text")
   .attr("x", (GRAPH_W / 2))
   .attr("y", 0 + (margin.top / 2))
   .attr("text-anchor", "middle")
-  .style("font-size", "16px")
+  .style("font-size", "20px")
   // .style("text-decoration", "underline")
   .text("Average Temperature vs Year");
 

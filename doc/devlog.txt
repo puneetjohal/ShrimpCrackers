@@ -273,13 +273,6 @@ joyceL -- 2019-05-30 12:25
 0. Display line graph for average temperature of a given location on info page
 ==============================================================
 
-taniaC-- 2019-05-30 17:35
---------------------------------------------------------------
-0. added city and state data into watchlist database
-1. updated all pages watchlist related to match with the new database
-2. fix bugs related to county data
-==============================================================
-
 joyceL -- 2019-05-30 22:39
 --------------------------------------------------------------
 0. Fix watchlist error (keyError "county")
@@ -356,4 +349,11 @@ taniaC-- 2019-06-06 17:45
 1. condense current location function so it works alongside with the info page
 2. convert location button into a link for aesthetic purposes
 3. updated devlog
+
+joyceL-- 2019-06-06 18:57
+--------------------------------------------------------------
+0. Change jumbotron color
+1. Add try excepts in __init__.py
+2. Store city/county/state ids as lists to make loading faster at startup
+3. Deploy current state on droplet
 ==============================================================

@@ -10,8 +10,8 @@ var URL = "https://maps.locationiq.com/v2/staticmap?key="+API_KEY+"&zoom=12&mark
 var map = document.getElementById("map");
 var img = document.createElement("img");
 img.setAttribute("src",URL);
-img.setAttribute("width", "500px");
-img.setAttribute("height", "450px");
+img.setAttribute("width", "450px");
+img.setAttribute("height", "400px");
 // console.log(img);
 map.append(img);
 
