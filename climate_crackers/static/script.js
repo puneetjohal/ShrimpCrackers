@@ -47,8 +47,8 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
 
   //Color interpolation
   var fill = d3.scaleLinear()
-      .domain([0, 100])
-      .range(["brown", "steelblue"]);
+      .domain([15, 100])
+      .range(["steelblue", "red"]);
     //.interpolator(d3.interpolateCool);
 
   //Year display on HTML
@@ -69,7 +69,14 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
       .style("fill", function(d) {
         // console.log(d3.select(this));
         // console.log(d);
-        return fill(getTemp(d.properties.name, value)); });
+        temp = getTemp(d.properties.name, value);
+        if (temp == 0) {
+          return "#D3D3D3";
+        }
+        else {
+        return fill(temp);
+        }
+      });
   }
   //Helper that get the tavg from temps object
   function getTemp(name, year) {
