@@ -3,41 +3,6 @@ var svg = d3.select("#landing_map");
 var path = d3.geoPath();
 
 //Loading average temperature data
-// d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/climate_crackers/data/tavg.json", function(error, data) {
-//   if (error) throw error;
-//
-//   for (county in data) {
-//     index = county.indexOf(" County");
-//     name = county.slice(0,index);
-//     counter = 1900;
-//     temps = [];
-//     for (obj in data[county]) {
-//       year = Object.keys(obj)[0];
-//       if (parseInt(year) != counter) {
-//         while (counter != parseInt(year)) {
-//           temps.push(0);
-//           counter = counter + 1;
-//         }
-//       }
-//       else {
-//         if (obj[year] === "") {
-//           val = 0;
-//         }
-//         else {
-//           val = parseInt(obj[year]);
-//         }
-//         temps.push(val);
-//       }
-//       counter = counter + 1;
-//     }
-//     while (counter < 2018) {
-//       temps.push(0);
-//       counter = counter + 1;
-//     }
-//     tavg[name] = temps;
-//   }
-//   console.log(tavg)
-// });
 
 //Drawing US map
 //JSON file being used here is an online version of the map.json file in the data directory. We aren't using the local version to bypass Chrome errors with opening a local file.
@@ -97,7 +62,7 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
     update(+this.value);
   });
   function update(value) {
-    d3.selectAll(".counties") //problem occurs here
+    svg.selectAll(".counties") //PROBLEM OCCURS HERE
       .style("fill", function(d) {
         console.log(d);
         return fill(getTemp(d.properties.name, value)); });
