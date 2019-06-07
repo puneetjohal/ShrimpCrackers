@@ -20,16 +20,16 @@ with open(DIR + "data/tavg.json", "r") as input:
                 while counter != int(year):
                     temps.append(0)
                     counter = counter + 1
+            if obj[year] == "":
+                val = 0
             else:
-                if obj[year] == "":
-                    val = 0
-                else:
-                    val = int(obj[year])
-                temps.append(val)
+                val = int(obj[year])
+            temps.append(val)
             counter = counter + 1
-        while counter < 2018:
-            temps.append(0)
-            counter = counter + 1
+        if counter != 2018:
+            while counter <= 2018:
+                temps.append(0)
+                counter = counter + 1
         editted[name] = temps
 
 with open(DIR + "data/landingData.json", w) as output:
