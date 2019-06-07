@@ -1,7 +1,14 @@
+import os
 import json
 import urllib.request, urllib.parse
 
-KEY = "AeQXeELfNwZglxceETnnOASZGit7hoW1"
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
+
+with open(DIR + "keys/mapquest.json", "r") as input:
+    apikey = json.load(input)
+
+KEY = apikey["token"]
 geocode = "http://open.mapquestapi.com/geocoding/v1/address?key=" + KEY + "&location="
 
 #MAPQUEST API
