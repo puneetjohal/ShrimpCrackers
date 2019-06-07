@@ -14,6 +14,7 @@ d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, u
     .selectAll("path")
     .data(topojson.feature(us, us.objects.counties).features)
     .enter().append("path")
+      .attr("class", "county-path")
       .attr("id", function(d) {
         return d.properties.name;
       })
@@ -44,8 +45,8 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
   if (error) throw error;
 
   //Color interpolation
-  var fill = d3.scaleLog()
-      .domain([10, 100])
+  var fill = d3.scaleLinear()
+      .domain([0, 100])
       .range(["brown", "steelblue"]);
     //.interpolator(d3.interpolateCool);
 
@@ -55,6 +56,7 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
   display.innerHTML = slider.value;
   slider.oninput = function() {
     display.innerHTML = this.value;
+    update(this.value);
   }
 
   //Color change when slider is adjusted
@@ -62,29 +64,35 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
     update(+this.value);
   });
   function update(value) {
-    svg.selectAll(".counties") //PROBLEM OCCURS HERE
+    svg.selectAll(".county-path") //PROBLEM OCCURS HERE
       .style("fill", function(d) {
-        console.log(d);
+        // console.log(d3.select(this));
+        // console.log(d);
         return fill(getTemp(d.properties.name, value)); });
   }
   //Helper that get the tavg from temps object
   function getTemp(name, year) {
     var temp;
-    for (obj in data[year]) {
-      curCounty = obj["county"];
+    // console.log(data[year])
+    for (var i=0; i < data[year].length; i++) {
+      // console.log(data[year][i]);
+      curCounty = data[year][i]["county"];
       index = curCounty.indexOf(" County");
       adjName = curCounty.slice(0,index);
       if (adjName === name) {
-        temp = obj["TAVG"];
+        temp = data[year][i]["TAVG"];
         break;
       }
     }
-    if (temp.toString() === "" || temp.toString() === "0") {
+
+    if (temp == undefined || temp.toString() === "" || temp.toString() === "0") {
       return 0;
     }
     else {
-      return int(temp);
+    // console.log(temp);
+      return parseFloat(temp);
     }
   }
 
+  // update(1950);
 }); //Close temps JSON
