@@ -1,8 +1,13 @@
 import json
 import urllib.request
 import time
+import os
 
-token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
+
+with open(DIR + "keys/climatedataonline.json", "r") as input:
+    token = json.load(input)
 
 #===============================================================================
 # COUNTY WEATHER INFORMATION FOR LANDING PAGE

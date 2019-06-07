@@ -2,8 +2,15 @@
 from flask import request
 import urllib.request
 import json
+import os
 
-KEY = "505ea9a7b91d5ca93f52056ca5bf77fd"
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
+
+with open(DIR + "keys/ipstack.json", "r") as input:
+    apikey = json.load(input)
+
+KEY = apikey["token"]
 
 def get_coord():
     IP = request.remote_addr
