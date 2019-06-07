@@ -6,6 +6,19 @@
     <div id="map"></div>
   </div>
   <div class="col">
+    <div style="text-align:center">
+    {% for each in weather_data["conditions"] %}
+    <img src="http://openweathermap.org/img/w/{{each['icon']}}.png" width="100px" height="100px">
+    <span style="text-transform: capitalize;">{{each["description"]}}</span>
+    <br>
+    {% endfor %}
+    <p>Current Temp: {{weather_data["curr_temp"]}} &deg;F<br>
+    Daily Lowest: {{weather_data["low_temp"]}} &deg;F<br>
+    Daily Highest: {{weather_data["high_temp"]}} &deg;F<br>
+    Humidity: {{weather_data["humidity"]}}%<br>
+    Wind Speed: {{weather_data["wdsp"]}} mph</p>
+    </div>
+    <br>
     {% if logged_in %}
     <form action = "/change_wl">
       <div class="form-group">
@@ -23,19 +36,6 @@
       </div>
     </form>
     {% endif %}
-    <div style="text-align:center">
-    {% for each in weather_data["conditions"] %}
-    <br>
-    <img src="http://openweathermap.org/img/w/{{each['icon']}}.png" width="100px" height="100px">
-    <span>{{each["description"]}}</span>
-    <br>
-    {% endfor %}
-    <h5>Current Temp: {{weather_data["curr_temp"]}} &deg;F</h5>
-    <h5>Daily Lowest: {{weather_data["low_temp"]}} &deg;F</h5>
-    <h5>Daily Highest: {{weather_data["high_temp"]}} &deg;F</h5>
-    <h5>Humidity: {{weather_data["humidity"]}}%</h5>
-    <h5>Wind Speed: {{weather_data["wdsp"]}} mph</h5>
-    </div>
   </div>
 </div>
 

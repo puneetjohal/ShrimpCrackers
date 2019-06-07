@@ -353,5 +353,7 @@ joyceL -- 2019-06-06 16:06
 taniaC-- 2019-06-06 17:45
 --------------------------------------------------------------
 0. changed sizing of information charts
-1. updated devlog
+1. condense current location function so it works alongside with the info page
+2. convert location button into a link for aesthetic purposes
+3. updated devlog
 ==============================================================
