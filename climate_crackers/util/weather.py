@@ -3,8 +3,15 @@
 from flask import request
 import urllib.request
 import json
+import os
 
-key = "fdcfa7261c9502470110507a3dbb2599"
+DIR = os.path.dirname(__file__) or '.'
+DIR += '/../'
+
+with open(DIR + "keys/openweathermap.json", "r") as input:
+    apikey = json.load(input)
+
+key = apikey["token"]
 
 def get_info(lat,long):
     url = "https://api.openweathermap.org/data/2.5/weather?units=imperial&appid={}&lat={}&lon={}".format(key, lat, long)

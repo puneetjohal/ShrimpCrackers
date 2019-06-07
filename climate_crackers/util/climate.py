@@ -10,7 +10,9 @@ from util.us_state_abbr import codes
 DIR = os.path.dirname(__file__) or '.'
 DIR += '/../'
 
-token = {"token": "jggiGITnyOHqgrVCGTgWCMycNLzIchHJ"}
+with open(DIR + "keys/climatedataonline.json", "r") as input:
+    token = json.load(input)
+
 
 #===============================================================================
 # COUNTY/CITY WEATHER INFORMATION FOR SEARCH FUNCTION

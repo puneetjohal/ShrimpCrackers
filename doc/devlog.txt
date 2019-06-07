@@ -358,3 +358,15 @@ joyceL-- 2019-06-06 18:57
 2. Store city/county/state ids as lists to make loading faster at startup
 3. Deploy current state on droplet
 ==============================================================
+
+puneetJ -- 2019-06-07 6:31
+--------------------------------------------------------------
+0. worked on choropleth map
+==============================================================
+
+puneetJ -- 2019-06-07 7:51
+--------------------------------------------------------------
+0. updated design doc
+1. created/added api kb cards
+2. updated readme
+==============================================================

@@ -1,5 +1,10 @@
 # Climate Crackers 
 ### Team ShrimpCrackers - Puneet Johal, Tania Cao, Joyce Liao, Sophia Xia
+#### Roster and Roles
+* Puneet Johal (PM, d3)
+* Tania Cao (Frontend, styling)
+* Joyce Liao (Backend, d3)
+* Sophia Xia (Backend, data)
 
 [Live link](http://68.183.221.237:8000/)
 
@@ -57,3 +62,9 @@ Climate Crackers is a data visualization website that allows users to explore tr
 ##### Climate Data Online
 * Provides historical weather and climate data
 * Request a token [here](https://www.ncdc.noaa.gov/cdo-web/token)
+##### ipstack
+* Provides location based on IP address
+* Sign up [here](https://ipstack.com/signup/free) for an API key
+##### OpenWeatherMap
+* Provides current weather conditions in a location
+* Sign up [here](https://home.openweathermap.org/users/sign_up) for an API key

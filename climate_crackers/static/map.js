@@ -1,4 +1,7 @@
 // Generating map from locationIQ API
+// var apidata = JSON.parse(data);
+// var API_KEY = apidata["token"];
+// console.log(API_KEY);
 var API_KEY = "pk.738f40deb14792dababc73f9349b0bfd";
 
 // var latitude = parseFloat(40.7128)
