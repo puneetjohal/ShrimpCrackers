@@ -6,7 +6,7 @@ from util import db, coord, climate, ip, weather
 
 app = Flask(__name__)
 
-app.secret_key=os.urandom(32)
+app.secret_key=os.getenv('SECRET_KEY', 'for dev')
 
 @app.route("/")
 def home():

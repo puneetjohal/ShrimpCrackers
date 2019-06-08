@@ -57,7 +57,14 @@ key.append("g")
   .attr("transform", "translate(0,30)")
   .call(yAxis);
 
+//Year display on HTML
+var slider = document.getElementById("year")
+var display = document.getElementById("current_year")
 
+var div = d3.select("body").append("div")
+    .attr("class", "tooltip")
+    .attr("id", "map-tooltip")
+    .style("opacity", 0);
 
 //Loading average temperature data
 
@@ -107,60 +114,75 @@ d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/cli
       .range(["steelblue", "red"]);
     //.interpolator(d3.interpolateCool);
 
-  //Year display on HTML
-  var slider = document.getElementById("year")
-  var display = document.getElementById("current_year")
-  display.innerHTML = slider.value;
-  slider.oninput = function() {
-    display.innerHTML = this.value;
-    update(this.value);
-  }
-
-  //Color change when slider is adjusted
-  d3.select("#year").on("input", function() {
-    update(+this.value);
-  });
-  function update(value) {
-    svg.selectAll(".county-path") //PROBLEM OCCURS HERE
-      .style("fill", function(d) {
-        // console.log(d3.select(this));
-        // console.log(d);
-        temp = getTemp(d.properties.name, value);
-        if (temp == 0) {
-          return "#D3D3D3";
-        }
-        else {
-        return fill(temp);
-        }
-      });
-  }
   //Helper that get the tavg from temps object
   function getTemp(name, year) {
     var temp;
-    // console.log(data[year])
-    // for (var i=0; i < data[year].length; i++) {
-    //   // console.log(data[year][i]);
-    //   curCounty = data[year][i]["county"];
-    //   index = curCounty.indexOf(" County");
-    //   adjName = curCounty.slice(0,index);
-    //   if (adjName === name) {
-    //     temp = data[year][i]["TAVG"];
-    //     break;
-    //   }
-    // }
     name = name + " County";
-
     temp = data[year][name];
 
     if (temp == undefined || temp.toString() === "" || temp.toString() === "0") {
       return 0;
     }
-
     else {
         // console.log(temp);
         return parseFloat(temp);
     }
   }
+
+  function changeColor(name, value) {
+      temp = getTemp(name, value);
+      if (temp == 0) {
+        return "#D3D3D3";
+      }
+      else {
+      return fill(temp);
+  }
+};
+
+  function update(value) {
+    svg.selectAll(".county-path")
+      .style("fill", d => changeColor(d.properties.name, value));
+  }
+
+  //Year display on HTML
+  display.innerHTML = slider.value;
+  slider.oninput = function() {
+    display.innerHTML = this.value;
+    update(+this.value);
+  }
+
+  //Color change when slider is adjusted
+  // d3.select("#year").on("input", function() {
+  //   update(+this.value);
+  // });
+
+  function tooltipText(name, value) {
+      text = name + " County<br/>"
+      temp = getTemp(name, value);
+      if (temp == 0) {
+          return text + "N/A";
+      }
+      else {
+          return text + temp + " F";
+      }
+  }
+
+  svg.selectAll(".county-path")
+    .on("mouseover", function(d) {
+      div.style("opacity", .9);
+      div.html(tooltipText(d.properties.name, slider.value))
+      .style("left", (d3.event.pageX) + "px")
+      .style("top", (d3.event.pageY - 45) + "px");
+      // console.log(d3.select(this));
+      d3.select(this).style("fill", "#ffffad")
+  })
+    .on("mouseout", function(d) {
+      // div.transition()
+      // .duration(500)
+      d3.select(this).style("fill", d => changeColor(d.properties.name, slider.value))
+      div.style("opacity", 0);
+  })
+
 
   update(2010);
   placeholder.remove();

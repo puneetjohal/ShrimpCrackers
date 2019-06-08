@@ -152,3 +152,8 @@ div.tooltip {
     border-radius: 2px;
     pointer-events: none;
 }
+
+div#map-tooltip.tooltip{
+    width: 100px;
+    height:45px;
+}
