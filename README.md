@@ -1,12 +1,11 @@
 # Climate Crackers 
 ### Team ShrimpCrackers - Puneet Johal, Tania Cao, Joyce Liao, Sophia Xia
+[Live link](http://68.183.221.237:8000/)
 #### Roster and Roles
 * Puneet Johal (PM, d3)
 * Tania Cao (Frontend, styling)
 * Joyce Liao (Backend, d3)
 * Sophia Xia (Backend, data)
-
-[Live link](http://68.183.221.237:8000/)
 
 #### Demo Video
 [Watch our video demo here](https://www.youtube.com/watch?v=DrSi6HytNdg&feature=youtu.be)
