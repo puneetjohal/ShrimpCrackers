@@ -157,3 +157,22 @@ div#map-tooltip.tooltip{
     width: 100px;
     height:45px;
 }
+
+/* Landing Map Legend */
+#mapLegend {
+  position: absolute;
+  margin-top: 450px;
+  margin-left: 150px;
+  left: 20px;
+  top: 30px;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis line, .axis path {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
