@@ -53,7 +53,7 @@ Climate Crackers is a data visualization website that allows users to explore tr
 9. Set a secret key for your app by running `export SECRET_KEY=your_custom_key`
 10. Enable the site by running `$ sudo a2ensite climate_crackers`
 11. Run `$ sudo service apache2 restart` to restart the Apache server.
-12. The app is now being hosted on port 8000 of your droplet. Go to http://<droplet_ip_address>:8000/ in your browser to view the site.
+12. The app is now being hosted on your droplet. Go to http://<droplet_ip_address> in your browser to view the site.
 
 #### API information
 ##### LocationIQ
