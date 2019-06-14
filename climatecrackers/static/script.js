@@ -52,7 +52,7 @@ d3.json("https://cdn.jsdelivr.net/npm/us-atlas@2/us/10m.json", function(error, u
 });
 
 //Loading average temperature data
-d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/climate_crackers/data/newLandingData.json", function(error, data) {
+d3.json("https://raw.githubusercontent.com/puneetjohal/ShrimpCrackers/master/climatecrackers/data/newLandingData.json", function(error, data) {
   if (error) throw error;
 
   //Color interpolation
