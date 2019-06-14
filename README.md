@@ -22,7 +22,7 @@ Climate Crackers is a data visualization website that allows users to explore tr
    * Make a venv by running `$ python3 -m venv path_to_venv`
    * Activate it by running `$ . /path_to_venv/bin/activate`
    * Deactivate it by running `$ deactivate`
-5. Move into the climate_crackers directory: `$ cd climate_crackers/`
+5. Move into the climatecrackers directory: `$ cd climatecrackers/`
 6. **With your virtual environment activated**, download all of the app's dependencies by running 
 ```
  (venv)$ pip install -r requirements.txt
@@ -33,8 +33,8 @@ Climate Crackers is a data visualization website that allows users to explore tr
 #### Install and run on Apache2
 1. SSH into your droplet by running `$ ssh <user>@<droplet_ip_address>`. Your user account should be part of the sudo group on the droplet.
 2. Move to the www directory using `$ cd ../../var/www/`
-3. Clone the repo by running `$ sudo git clone https://github.com/puneetjohal/ShrimpCrackers.git climate_crackers`
-4. Move into the repo directory using `$ cd climate_crackers/`. Use `$ sudo vim climate_crackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `$ sudo mv climate_crackers.conf ../../../etc/apache2/sites-available/`
+3. Clone the repo by running `$ sudo git clone https://github.com/puneetjohal/ShrimpCrackers.git climatecrackers`
+4. Move into the repo directory using `$ cd climatecrackers/`. Use `$ sudo vim climatecrackers.conf` to edit the conf file. Change the parameter after "ServerName" to the IP address of your droplet. Save and exit, and move the conf file to the sites-enabled directory by running `$ sudo mv climatecrackers.conf ../../../etc/apache2/sites-available/`
 5. Make sure the latest version of Python (currently Python 3.7.1) is installed on your droplet by running `$ python3.7 --version`. The terminal should output `Python 3.7.1`. If not, run
 ```
   $ sudo apt-get update
@@ -47,11 +47,11 @@ Climate Crackers is a data visualization website that allows users to explore tr
    * Deactivate it by running `$ deactivate`
 7. **With your virtual environment activated**, download all of the app's dependencies by running 
 ```
- (venv)$ pip install -r climate_crackers/requirements.txt
+ (venv)$ pip install -r climatecrackers/requirements.txt
 ```
-8. Add www-data write permissions by running `sudo chgrp -R www-data climate_crackers` and `sudo chmod -R g+w climate_crackers`
+8. Add www-data write permissions by running `sudo chgrp -R www-data climatecrackers` and `sudo chmod -R g+w climatecrackers`
 9. Set a secret key for your app by running `export SECRET_KEY=your_custom_key`
-10. Enable the site by running `$ sudo a2ensite climate_crackers`
+10. Enable the site by running `$ sudo a2ensite climatecrackers`
 11. Run `$ sudo service apache2 restart` to restart the Apache server.
 12. The app is now being hosted on your droplet. Go to http://<droplet_ip_address> in your browser to view the site.
 
